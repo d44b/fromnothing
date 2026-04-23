@@ -814,6 +814,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   filter: grayscale(0) contrast(1.1);
   transform: scale(1.04);
 }
+.member--zoom .member__portrait img { transform: scale(1.10); }
+.member--zoom:hover .member__portrait img { transform: scale(1.14); }
 
 .member__meta {
   display: flex;
