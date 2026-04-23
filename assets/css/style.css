@@ -493,8 +493,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   background-position: center;
   background-repeat: no-repeat;
   z-index: -2;
-  opacity: 0.35;
-  filter: grayscale(0.4) contrast(1.05);
+  opacity: 0.85;
+  filter: grayscale(0.25) contrast(1.08) saturate(0.9);
   transform: scale(1.05);
   animation: bg-drift 18s ease-in-out infinite alternate;
 }
@@ -503,11 +503,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 50% 30%, rgba(10, 9, 8, 0.55) 0%, rgba(10, 9, 8, 0.95) 70%),
+    radial-gradient(ellipse at 50% 40%, rgba(10, 9, 8, 0.30) 0%, rgba(10, 9, 8, 0.80) 75%),
     linear-gradient(180deg,
       var(--bg) 0%,
-      rgba(10, 9, 8, 0.82) 12%,
-      rgba(10, 9, 8, 0.82) 88%,
+      rgba(10, 9, 8, 0.55) 10%,
+      rgba(10, 9, 8, 0.55) 90%,
       var(--bg) 100%);
   z-index: -1;
 }
@@ -535,7 +535,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .lineup.section--bg::before {
   background-image: url("/assets/img/bg-lineup.jpg");
-  opacity: 0.28;
+  opacity: 0.75;
 }
 
 @keyframes bg-drift {
