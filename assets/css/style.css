@@ -476,6 +476,76 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   padding: var(--section-y) var(--pad-x);
   position: relative;
 }
+
+/* Backdrop image variants — live photo through dark scrim */
+.section--bg {
+  max-width: none;
+  padding-left: 0;
+  padding-right: 0;
+  isolation: isolate;
+  overflow: hidden;
+}
+.section--bg::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: -2;
+  opacity: 0.35;
+  filter: grayscale(0.4) contrast(1.05);
+  transform: scale(1.05);
+  animation: bg-drift 18s ease-in-out infinite alternate;
+}
+.section--bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(10, 9, 8, 0.55) 0%, rgba(10, 9, 8, 0.95) 70%),
+    linear-gradient(180deg,
+      var(--bg) 0%,
+      rgba(10, 9, 8, 0.82) 12%,
+      rgba(10, 9, 8, 0.82) 88%,
+      var(--bg) 100%);
+  z-index: -1;
+}
+.section--bg > .section__head,
+.section--bg > .empty-state,
+.section--bg > .lineup__grid,
+.section--bg > .tour__note {
+  margin-left: var(--pad-x);
+  margin-right: var(--pad-x);
+  max-width: calc(var(--max-w) - 2 * var(--pad-x));
+  margin-left: auto;
+  margin-right: auto;
+}
+.section--bg > * {
+  padding-left: var(--pad-x);
+  padding-right: var(--pad-x);
+  max-width: var(--max-w);
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.tour.section--bg::before {
+  background-image: url("/assets/img/bg-shows.jpg");
+}
+.lineup.section--bg::before {
+  background-image: url("/assets/img/bg-lineup.jpg");
+  opacity: 0.28;
+}
+
+@keyframes bg-drift {
+  from { transform: scale(1.05) translate3d(0, 0, 0); }
+  to   { transform: scale(1.08) translate3d(-1%, -1.5%, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section--bg::before { animation: none; }
+}
 .section__head {
   display: grid;
   grid-template-columns: auto 1fr;

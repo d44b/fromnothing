@@ -29,7 +29,7 @@
       "form.err": "Błąd. Spróbuj ponownie.",
       "footer.rights": "Wszelkie prawa zastrzeżone",
       "role.vox": "Wokal",
-      "role.voxRapGuitar": "Wokal / Rap / Gitara",
+      "role.voxGuitar": "Wokal/Gitara",
       "role.guitar": "Gitara",
       "role.bass": "Bas",
       "role.drums": "Perkusja"
@@ -62,7 +62,7 @@
       "form.err": "Error. Please try again.",
       "footer.rights": "All rights reserved",
       "role.vox": "Vocals",
-      "role.voxRapGuitar": "Vocals / Rap / Guitar",
+      "role.voxGuitar": "Vocals/Guitar",
       "role.guitar": "Guitar",
       "role.bass": "Bass",
       "role.drums": "Drums"
