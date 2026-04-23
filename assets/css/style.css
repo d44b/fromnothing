@@ -760,7 +760,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   justify-content: space-between;
 }
 .member:hover { background: var(--bg-elev); }
-.member:hover .member__num { color: var(--accent); }
 .member:hover .member__portrait { color: var(--accent-hot); }
 
 .member__portrait {
@@ -823,13 +822,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   padding-top: 1rem;
   border-top: 1px solid var(--line);
   min-height: 7.5rem;
-}
-.member__num {
-  font-family: var(--ff-mono);
-  font-size: 0.7rem;
-  letter-spacing: 0.4em;
-  color: var(--ink-faint);
-  transition: color 0.25s;
 }
 .member__role {
   font-family: var(--ff-display);
