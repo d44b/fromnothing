@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FROM NOTHING — Linkin Park Tribute Band</title>
+  <meta name="description" content="From Nothing — Linkin Park Tribute Band. Oficjalna strona zespołu." />
+  <meta property="og:title" content="FROM NOTHING" />
+  <meta property="og:description" content="Official site." />
+  <meta property="og:image" content="/assets/img/og-image.png" />
+  <meta property="og:type" content="website" />
+  <link rel="icon" type="image/png" href="/assets/img/favicon-source.png" />
+  <link rel="apple-touch-icon" href="/assets/img/favicon-source.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Teko:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <header class="nav">
+    <a href="#top" class="nav__brand" aria-label="From Nothing — home">
+      <img src="/assets/img/logo-symbol-white.png" alt="" class="nav__logo" />
+      <span class="nav__name">FROM NOTHING</span>
+    </a>
+    <nav class="nav__links" id="navLinks" aria-label="Primary">
+      <a href="#tour" data-i18n="nav.tour">Koncerty</a>
+      <a href="#lineup" data-i18n="nav.lineup">Skład</a>
+      <a href="#contact" data-i18n="nav.contact">Kontakt</a>
+    </nav>
+    <div class="nav__right">
+      <div class="nav__lang" role="group" aria-label="Language">
+        <button type="button" data-lang="pl" class="lang-btn is-active" aria-pressed="true">PL</button>
+        <span class="lang-sep">/</span>
+        <button type="button" data-lang="en" class="lang-btn" aria-pressed="false">EN</button>
+      </div>
+      <button type="button" class="nav__toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section id="top" class="hero">
+    <div class="hero__ghost" aria-hidden="true">
+      <img src="/assets/img/logo-symbol-white.png" alt="" />
+    </div>
+
+    <div class="hero__logo">
+      <img src="/assets/img/logo-full-white.png" alt="From Nothing" />
+    </div>
+
+    <p class="hero__subtitle">
+      <span class="hero__subtitle-bar" aria-hidden="true"></span>
+      <span data-i18n="hero.subtitle">Linkin Park Tribute Band</span>
+      <span class="hero__subtitle-bar" aria-hidden="true"></span>
+    </p>
+
+    <div class="hero__cta">
+      <a href="#tour" class="btn btn--primary" data-i18n="hero.cta.tour">Zobacz koncerty →</a>
+      <a href="#contact" class="btn btn--ghost" data-i18n="hero.cta.book">Booking</a>
+    </div>
+
+    <div class="hero__scroll" aria-hidden="true">
+      <span data-i18n="hero.scroll">Przewiń</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- MARQUEE TICKER -->
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker__track">
+      <span>FROM NOTHING</span><span class="ticker__dot">✺</span>
+      <span>LINKIN PARK</span><span class="ticker__dot">✺</span>
+      <span>TRIBUTE BAND</span><span class="ticker__dot">✺</span>
+      <span>FROM NOTHING</span><span class="ticker__dot">✺</span>
+      <span>LINKIN PARK</span><span class="ticker__dot">✺</span>
+      <span>TRIBUTE BAND</span><span class="ticker__dot">✺</span>
+      <!-- duplicate for seamless loop -->
+      <span>FROM NOTHING</span><span class="ticker__dot">✺</span>
+      <span>LINKIN PARK</span><span class="ticker__dot">✺</span>
+      <span>TRIBUTE BAND</span><span class="ticker__dot">✺</span>
+      <span>FROM NOTHING</span><span class="ticker__dot">✺</span>
+      <span>LINKIN PARK</span><span class="ticker__dot">✺</span>
+      <span>TRIBUTE BAND</span><span class="ticker__dot">✺</span>
+    </div>
+  </div>
+
+  <!-- TOUR -->
+  <section id="tour" class="section tour">
+    <header class="section__head">
+      <span class="section__num">01 /</span>
+      <h2 class="section__title" data-i18n="tour.title">Koncerty</h2>
+      <p class="section__sub" data-i18n="tour.sub">Nadchodzące koncerty</p>
+    </header>
+
+    <div class="empty-state">
+      <p class="empty-state__line" data-i18n="tour.empty1">Aktualnie nie mamy zaplanowanych koncertów.</p>
+      <p class="empty-state__line empty-state__line--sub" data-i18n="tour.empty2">Chcecie nas zaprosić na event? Skorzystajcie z formularza poniżej.</p>
+      <a href="#contact" class="btn btn--primary empty-state__cta" data-i18n="tour.empty.cta">Napisz do nas →</a>
+    </div>
+  </section>
+
+  <!-- LINEUP -->
+  <section id="lineup" class="section lineup">
+    <header class="section__head">
+      <span class="section__num">02 /</span>
+      <h2 class="section__title" data-i18n="lineup.title">Skład</h2>
+      <p class="section__sub" data-i18n="lineup.sub">Lineup</p>
+    </header>
+
+    <!--
+      Lineup placeholders. Each .member block has:
+        - .member__portrait: silhouette SVG (replace wrapper content with <img> when photos are ready)
+        - .member__role:     editable (e.g. "Wokal", "Gitara"…)
+        - .member__name:     editable name
+    -->
+    <div class="lineup__grid">
+      <article class="member">
+        <div class="member__portrait" aria-hidden="true">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="36" r="17" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 100 C12 74 28 62 50 62 C72 62 88 74 88 100" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="member__meta">
+          <span class="member__num">I</span>
+          <h3 class="member__role" data-i18n="role.vox">Wokal</h3>
+          <p class="member__name">Mery</p>
+        </div>
+      </article>
+
+      <article class="member">
+        <div class="member__portrait" aria-hidden="true">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="36" r="17" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 100 C12 74 28 62 50 62 C72 62 88 74 88 100" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="member__meta">
+          <span class="member__num">II</span>
+          <h3 class="member__role" data-i18n="role.voxRapGuitar">Wokal / Rap / Gitara</h3>
+          <p class="member__name">Janusz</p>
+        </div>
+      </article>
+
+      <article class="member">
+        <div class="member__portrait" aria-hidden="true">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="36" r="17" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 100 C12 74 28 62 50 62 C72 62 88 74 88 100" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="member__meta">
+          <span class="member__num">III</span>
+          <h3 class="member__role" data-i18n="role.guitar">Gitara</h3>
+          <p class="member__name">Tomek</p>
+        </div>
+      </article>
+
+      <article class="member">
+        <div class="member__portrait" aria-hidden="true">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="36" r="17" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 100 C12 74 28 62 50 62 C72 62 88 74 88 100" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="member__meta">
+          <span class="member__num">IV</span>
+          <h3 class="member__role" data-i18n="role.bass">Bas</h3>
+          <p class="member__name">Patryk</p>
+        </div>
+      </article>
+
+      <article class="member">
+        <div class="member__portrait" aria-hidden="true">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="36" r="17" fill="none" stroke="currentColor" stroke-width="1.5"/>
+            <path d="M12 100 C12 74 28 62 50 62 C72 62 88 74 88 100" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="member__meta">
+          <span class="member__num">V</span>
+          <h3 class="member__role" data-i18n="role.drums">Perkusja</h3>
+          <p class="member__name">Wojtek</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact">
+    <header class="section__head">
+      <span class="section__num">03 /</span>
+      <h2 class="section__title" data-i18n="contact.title">Kontakt</h2>
+      <p class="section__sub" data-i18n="contact.sub">Booking</p>
+    </header>
+
+    <div class="contact__grid">
+      <aside class="contact__info">
+        <div class="contact__block">
+          <span class="contact__label" data-i18n="contact.bookingLabel">Kontakt</span>
+          <a href="#" class="contact__email" id="bookingEmail">—</a>
+        </div>
+        <div class="contact__social">
+          <a href="#" target="_blank" rel="noopener" class="social" id="socialIg">
+            <span class="social__num">[01]</span> INSTAGRAM →
+          </a>
+          <a href="#" target="_blank" rel="noopener" class="social" id="socialFb">
+            <span class="social__num">[02]</span> FACEBOOK →
+          </a>
+        </div>
+      </aside>
+
+      <form class="contact__form" id="contactForm" novalidate>
+        <div class="field">
+          <label for="f-name" data-i18n="form.name">Imię</label>
+          <input id="f-name" name="name" type="text" required autocomplete="name" />
+        </div>
+        <div class="field">
+          <label for="f-email" data-i18n="form.email">E-mail</label>
+          <input id="f-email" name="email" type="email" required autocomplete="email" />
+        </div>
+        <div class="field field--wide">
+          <label for="f-subject" data-i18n="form.subject">Temat</label>
+          <input id="f-subject" name="subject" type="text" required />
+        </div>
+        <div class="field field--wide">
+          <label for="f-message" data-i18n="form.message">Wiadomość</label>
+          <textarea id="f-message" name="message" rows="5" required></textarea>
+        </div>
+        <div class="field field--wide form__actions">
+          <button type="submit" class="btn btn--primary" data-i18n="form.send">Wyślij</button>
+          <span class="form__status" id="formStatus" aria-live="polite"></span>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer__top">
+      <img src="/assets/img/wordmark-white.png" alt="From Nothing" class="footer__wordmark" />
+    </div>
+    <div class="footer__bottom">
+      <span class="footer__copy">© <span id="year">2026</span> FROM NOTHING · <span data-i18n="footer.rights">Wszelkie prawa zastrzeżone</span></span>
+      <span class="footer__meta">fromnothing.pl</span>
+    </div>
+  </footer>
+
+  <script src="/assets/js/app.js" defer></script>
+</body>
+</html>
