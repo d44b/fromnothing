@@ -650,17 +650,30 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   flex-direction: column;
   gap: 0.25rem;
 }
-.tour__venue-name {
-  color: var(--ink);
-  letter-spacing: 0.16em;
-  font-weight: 700;
-}
-.tour__venue-event {
-  font-size: 0.75rem;
+.tour__venue-addr {
   color: var(--ink-dim);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.12em;
   text-transform: none;
-  font-style: italic;
+}
+.tour__event-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.16em;
+  color: var(--accent-hot);
+  text-transform: uppercase;
+  margin-top: 0.25rem;
+  transition: gap 0.2s var(--ease-out);
+  width: fit-content;
+}
+.tour__event-link:hover { gap: 0.6rem; }
+.tour__event-arrow {
+  display: inline-block;
+  transition: transform 0.2s var(--ease-out);
+}
+.tour__event-link:hover .tour__event-arrow {
+  transform: translate(2px, -2px);
 }
 .tour__ticket {
   font-family: var(--ff-mono);
