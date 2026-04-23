@@ -493,8 +493,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   background-position: center;
   background-repeat: no-repeat;
   z-index: -2;
-  opacity: 1;
-  filter: grayscale(0.2) contrast(1.1) saturate(0.95) brightness(0.55);
+  opacity: 0.35;
+  filter: grayscale(0.4) contrast(1.05);
   transform: scale(1.05);
   animation: bg-drift 18s ease-in-out infinite alternate;
 }
@@ -502,11 +502,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg,
-    var(--bg) 0%,
-    rgba(10, 9, 8, 0.35) 8%,
-    rgba(10, 9, 8, 0.35) 92%,
-    var(--bg) 100%);
+  background:
+    radial-gradient(ellipse at 50% 30%, rgba(10, 9, 8, 0.55) 0%, rgba(10, 9, 8, 0.95) 70%),
+    linear-gradient(180deg,
+      var(--bg) 0%,
+      rgba(10, 9, 8, 0.82) 12%,
+      rgba(10, 9, 8, 0.82) 88%,
+      var(--bg) 100%);
   z-index: -1;
 }
 .section--bg > .section__head,
@@ -533,7 +535,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .lineup.section--bg::before {
   background-image: url("/assets/img/bg-lineup.jpg");
-  filter: grayscale(0.3) contrast(1.15) saturate(0.9) brightness(0.5);
+  opacity: 0.28;
+}
+.contact.section--bg::before {
+  background-image: url("/assets/img/bg-contact.jpg");
+  opacity: 0.30;
 }
 
 @keyframes bg-drift {
