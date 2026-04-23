@@ -98,11 +98,25 @@
       <p class="section__sub" data-i18n="tour.sub">Nadchodzące koncerty</p>
     </header>
 
-    <div class="empty-state">
-      <p class="empty-state__line" data-i18n="tour.empty1">Aktualnie nie mamy zaplanowanych koncertów.</p>
-      <p class="empty-state__line empty-state__line--sub" data-i18n="tour.empty2">Chcecie nas zaprosić na event? Skorzystajcie z formularza poniżej.</p>
-      <a href="#contact" class="btn btn--primary empty-state__cta" data-i18n="tour.empty.cta">Napisz do nas →</a>
-    </div>
+    <ol class="tour__list">
+      <li class="tour__row">
+        <time class="tour__date" datetime="2026-06-14">
+          <span class="tour__day">14</span>
+          <span class="tour__month" data-i18n="months.06">CZE</span>
+          <span class="tour__year">2026</span>
+        </time>
+        <div class="tour__city">TYCHY</div>
+        <div class="tour__venue">
+          <span class="tour__venue-name">Stadion GKS</span>
+          <span class="tour__venue-event" data-i18n="tour.row1.event">Event: Serca na Kołach</span>
+        </div>
+        <div class="tour__action">
+          <a href="#contact" class="tour__ticket" data-i18n="tour.info">Info</a>
+        </div>
+      </li>
+    </ol>
+
+    <p class="tour__note" data-i18n="tour.more">Chcecie nas zaprosić na kolejny event? Napiszcie przez formularz poniżej.</p>
   </section>
 
   <!-- LINEUP -->
