@@ -728,13 +728,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .tour__cta-text {
   font-family: var(--ff-mono);
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   line-height: 1.55;
   letter-spacing: 0.04em;
   color: var(--ink);
-  max-width: 60ch;
   margin: 0;
-  flex: 1 1 300px;
+  flex: 1 1 auto;
 }
 @media (max-width: 640px) {
   .tour__cta .btn { width: 100%; justify-content: center; }
