@@ -12,6 +12,9 @@
       "tour.title": "Koncerty",
       "tour.sub": "Nadchodzące koncerty",
       "tour.info": "Info",
+      "tour.played": "Zagrane",
+      "tour.gallery": "Galeria →",
+      "tour.thanks": "Tychy — było pięknie! Wymarzony debiut! Do zobaczenia wkrótce :)",
       "tour.row1.event": "Serca na Kołach",
       "tour.more": "W sprawie koncertów i bookingu — skorzystaj z formularza.",
       "tour.more.cta": "Napisz do nas →",
@@ -50,6 +53,9 @@
       "tour.title": "Shows",
       "tour.sub": "Upcoming shows",
       "tour.info": "Info",
+      "tour.played": "Played",
+      "tour.gallery": "Gallery →",
+      "tour.thanks": "Tychy — it was beautiful! A dream debut! See you soon :)",
       "tour.row1.event": "Serca na Kołach",
       "tour.more": "For shows and booking — use the form.",
       "tour.more.cta": "Get in touch →",
@@ -185,6 +191,31 @@
     });
   }
 
+  // Hero background parallax — translate the photo slower than scroll
+  function initParallax() {
+    const hero = document.querySelector(".hero");
+    if (!hero) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    let ticking = false;
+    const update = () => {
+      const y = window.scrollY || window.pageYOffset || 0;
+      // only run while the hero is roughly in view
+      if (y < window.innerHeight * 1.3) {
+        hero.style.setProperty("--hero-parallax", (y * 0.35).toFixed(1) + "px");
+      }
+      ticking = false;
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    update();
+  }
+
   function initNavToggle() {
     const toggle = document.getElementById("navToggle");
     const links = document.getElementById("navLinks");
@@ -216,5 +247,6 @@
     initYear();
     initForm();
     initNavToggle();
+    initParallax();
   });
 })();

@@ -182,6 +182,37 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   isolation: isolate;
 }
 
+/* full-width band photo behind the hero — subtle, blends into page bg */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: -40% 0;
+  z-index: -3;
+  background-image: url("/assets/img/bg-hero.jpg");
+  background-size: cover;
+  background-position: center 46%;
+  background-repeat: no-repeat;
+  opacity: 0.42;
+  filter: grayscale(0.25) contrast(1.05);
+  pointer-events: none;
+  transform: translate3d(0, var(--hero-parallax, 0px), 0);
+  will-change: transform;
+}
+.hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(10, 9, 8, 0.05) 0%, rgba(10, 9, 8, 0.48) 80%),
+    linear-gradient(180deg,
+      var(--bg) 0%,
+      rgba(10, 9, 8, 0.38) 16%,
+      rgba(10, 9, 8, 0.38) 80%,
+      var(--bg) 100%);
+  pointer-events: none;
+}
+
 .hero__logo {
   width: min(1100px, 92vw);
   opacity: 0;
@@ -193,6 +224,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   width: 100%;
   height: auto;
   display: block;
+  opacity: 0.85;
 }
 @keyframes logo-in {
   to { opacity: 1; transform: translateY(0); }
@@ -691,6 +723,40 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   background: var(--accent);
   border-color: var(--accent);
   color: var(--ink);
+}
+
+/* played / past show */
+.tour__row--past .tour__day,
+.tour__row--past .tour__city {
+  opacity: 0.7;
+}
+.tour__badge {
+  display: inline-block;
+  margin-left: 0.6rem;
+  vertical-align: middle;
+  font-family: var(--ff-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--accent-hot);
+  border: 1px solid var(--line-strong);
+  padding: 0.22rem 0.5rem;
+  position: relative;
+  top: -0.18em;
+  opacity: 1;
+}
+
+.tour__thanks {
+  grid-column: 1 / -1;
+  margin: -0.5rem 0 0;
+  font-family: var(--ff-mono);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  letter-spacing: 0.06em;
+  color: var(--ink-dim);
+  padding-left: 0.85rem;
+  border-left: 2px solid var(--accent);
 }
 
 .tour__note {
