@@ -212,6 +212,14 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
       var(--bg) 100%);
   pointer-events: none;
 }
+/* mobile/portrait: viewport is narrower than the photo, so `cover` would crop
+   the band's edges — show the full width instead so the whole lineup is visible */
+@media (max-width: 768px) {
+  .hero::before {
+    background-size: 100% auto;
+    background-position: center center;
+  }
+}
 
 .hero__logo {
   width: min(1100px, 92vw);
