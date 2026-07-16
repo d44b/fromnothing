@@ -658,7 +658,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   grid-template-columns: auto 1fr 1.4fr auto;
   gap: 2rem;
   align-items: center;
-  padding: 1.75rem 0.5rem;
+  padding: 1.75rem 1.5rem;
+  background: rgba(10, 9, 8, 0.75);
   border-bottom: 1px solid var(--line);
   transition: background 0.25s var(--ease-out), padding 0.25s var(--ease-out);
   position: relative;
@@ -673,7 +674,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .tour__row:hover {
   background: var(--bg-elev);
-  padding-left: 1.5rem;
+  padding-left: 2rem;
+  padding-right: 2.5rem;
 }
 .tour__row:hover::before { width: 4px; }
 
@@ -988,9 +990,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-size: var(--fs-sm);
   letter-spacing: 0.22em;
   text-transform: uppercase;
-  padding: 0.75rem 0;
+  padding: 0.75rem 0.9rem;
+  background: rgba(10, 9, 8, 0.75);
   border-top: 1px solid var(--line);
-  transition: color 0.2s, padding 0.25s;
+  transition: color 0.2s, padding 0.25s, background 0.25s;
   display: flex;
   align-items: center;
   gap: 1rem;
@@ -1003,7 +1006,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   fill: currentColor;
   flex: 0 0 auto;
 }
-.social:hover { color: var(--accent-hot); padding-left: 0.5rem; }
+.social:hover {
+  color: var(--accent-hot);
+  padding-left: 1.4rem;
+  background: rgba(10, 9, 8, 0.92);
+}
 
 /* Form */
 .contact__form {
@@ -1268,8 +1275,66 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     animation: none;
   }
 
+  .tour__row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    align-items: start;
+    padding: 1.25rem 1rem 1.1rem 1.25rem;
+  }
+
+  .tour__row:hover {
+    padding-left: 1.5rem;
+    padding-right: 1rem;
+  }
+
+  .tour__date {
+    min-width: 0;
+  }
+
+  .tour__city,
+  .tour__venue,
+  .tour__action {
+    min-width: 0;
+  }
+
+  .tour__badge {
+    display: inline-flex;
+    margin-left: 0;
+    width: fit-content;
+  }
+
+  .tour__event-link {
+    width: 100%;
+    white-space: normal;
+    line-height: 1.4;
+  }
+
+  .tour__action {
+    width: 100%;
+  }
+
+  .tour__ticket {
+    display: inline-flex;
+    width: 100%;
+    max-width: 250px;
+    justify-content: center;
+    white-space: normal;
+    text-align: center;
+  }
+
+  .tour__thanks {
+    margin-top: 0.15rem;
+    padding-left: 0.75rem;
+  }
+
   .hero__ghost {
-    display: none;
+    top: 30%;
+    right: -1.5rem;
+    width: 34vw;
+    max-width: 150px;
+    transform: none;
+    opacity: 0.06;
+    animation: none;
   }
 
   .nav {
@@ -1299,6 +1364,32 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     background: rgba(10, 9, 8, 0.9);
     backdrop-filter: none;
     -webkit-backdrop-filter: none;
+  }
+}
+
+@media (max-width: 430px) {
+  .tour__row {
+    gap: 0.85rem;
+    padding: 1.1rem 0.85rem 1rem 1.05rem;
+  }
+
+  .tour__row:hover {
+    padding-left: 1.25rem;
+    padding-right: 0.85rem;
+  }
+
+  .tour__city {
+    font-size: clamp(1.2rem, 7vw, 1.55rem);
+  }
+
+  .tour__venue {
+    font-size: 0.75rem;
+    letter-spacing: 0.12em;
+  }
+
+  .tour__event-link,
+  .tour__ticket {
+    font-size: 0.68rem;
   }
 }
 
