@@ -152,7 +152,8 @@
     document.querySelectorAll(".lang-btn").forEach((btn) => {
       const active = btn.dataset.lang === lang;
       btn.classList.toggle("is-active", active);
-      btn.setAttribute("aria-pressed", String(active));
+      if (active) btn.setAttribute("aria-current", "page");
+      else btn.removeAttribute("aria-current");
     });
     updateLanguageMetadata(lang);
     localStorage.setItem(STORAGE_KEY, lang);
@@ -176,7 +177,12 @@
     applyLang(initialLang, { updateUrl: urlNeedsSync, replaceUrl: true });
 
     document.querySelectorAll(".lang-btn").forEach((btn) => {
-      btn.addEventListener("click", () => applyLang(btn.dataset.lang, { updateUrl: true }));
+      btn.addEventListener("click", (event) => {
+        if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+        event.preventDefault();
+        if (btn.dataset.lang === document.documentElement.lang) return;
+        applyLang(btn.dataset.lang, { updateUrl: true });
+      });
     });
 
     window.addEventListener("popstate", () => {
