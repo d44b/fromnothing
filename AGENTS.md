@@ -1,3 +1,11 @@
+# Working policy
+
+- Do not use test-driven development in this repository unless the user explicitly requests it.
+- Do not create test files, temporary validation scripts, or add testing dependencies solely to verify a change. Use existing checks and read-only, offline commands when appropriate.
+- Do not start a local server, use browser automation, access or scrape the production website, or make network requests unless the user explicitly requests or approves it.
+- The user performs visual, browser, PageSpeed, and deployed-site verification. Clearly report which of these checks were not run.
+- Still inspect changed files and run proportionate offline validation that does not create project files, install dependencies, or modify external state.
+
 # Rules for site updates
 
 ## Project purpose and scope
@@ -45,6 +53,9 @@ This table is a minimum checklist, not an exhaustive list. Search the repository
 
 - The Polish version uses `https://fromnothing.pl/`.
 - The English version uses `https://fromnothing.pl/?lang=en`.
+- Persist an explicit language choice in `localStorage` under the `fn:lang` key.
+- A stored English choice may redirect `https://fromnothing.pl/` to `https://fromnothing.pl/?lang=en`, but the Polish root document must never expose the English canonical URL before that navigation.
+- Treat the URL as the source of truth for the currently rendered language and its metadata.
 - Every new or changed user-facing string must have complete Polish and English values unless the user explicitly requests otherwise.
 - Translation keys must exist in both language dictionaries and must remain semantically equivalent.
 - Language switching must keep `document.documentElement.lang`, visible content, active controls, URL, canonical URL, Open Graph data, and Twitter metadata consistent.
@@ -117,15 +128,16 @@ This table is a minimum checklist, not an exhaustive list. Search the repository
 
 ## Required verification
 
-Run checks appropriate to every changed area before reporting completion. At minimum:
+Run proportionate offline checks for the areas changed. Do not create test artifacts or start servers solely for verification.
 
-- Parse JSON-LD as JSON and confirm that required entities and updated values are present.
-- Validate `sitemap.xml` as XML and confirm that canonical and hreflang URLs agree with the HTML.
-- Search for stale values, stale asset paths, missing translation keys, and obsolete references.
-- Confirm that every referenced local asset exists.
-- For HTML/CSS/UI changes, inspect relevant mobile, tablet, and desktop layouts in both languages.
+- Parse JSON-LD when structured data or facts represented by it change.
+- Validate `sitemap.xml` when URLs, languages, public content, or sitemap data change.
+- Search the affected files for stale values, paths, and obsolete references.
+- Confirm local assets exist when asset references change.
+- Check translation-key parity when user-facing copy or language behavior changes.
+- Leave visual, responsive, browser, PageSpeed, and production-site verification to the user unless explicitly requested.
 
-Never claim that a change is complete, valid, or passing unless the relevant fresh verification was actually run. If a check cannot be run, state that limitation explicitly.
+Never claim that an unperformed check passed. State clearly which checks were run and which remain for the user.
 
 ## Repository operations
 

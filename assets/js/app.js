@@ -111,8 +111,7 @@
     if (queryLang && supported.includes(queryLang)) return queryLang;
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved && supported.includes(saved)) return saved;
-    const nav = (navigator.language || "en").slice(0, 2).toLowerCase();
-    return supported.includes(nav) ? nav : "pl";
+    return "pl";
   }
 
   function setMetaContent(selector, value) {
@@ -167,8 +166,13 @@
   function initLang() {
     const initialLang = detectLang();
     const queryLang = new URLSearchParams(window.location.search).get("lang");
-    const urlNeedsSync = (initialLang === "en" && queryLang !== "en") ||
-      (initialLang === "pl" && queryLang !== null);
+
+    if (initialLang === "en" && queryLang !== "en") {
+      window.location.replace(languageUrl("en"));
+      return;
+    }
+
+    const urlNeedsSync = initialLang === "pl" && queryLang !== null;
     applyLang(initialLang, { updateUrl: urlNeedsSync, replaceUrl: true });
 
     document.querySelectorAll(".lang-btn").forEach((btn) => {
