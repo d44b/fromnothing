@@ -199,32 +199,40 @@
     <header class="section__head">
       <span class="section__num">01 /</span>
       <h2 class="section__title" data-i18n="tour.title">Koncerty</h2>
-      <p class="section__sub" data-i18n="tour.sub">Nadchodzące koncerty</p>
+      <p class="section__sub" data-i18n="tour.sub">Terminy</p>
     </header>
 
-    <ol class="tour__list">
-      <li class="tour__row tour__row--past">
-        <time class="tour__date" datetime="2026-06-14">
-          <span class="tour__day">14</span>
-          <span class="tour__month" data-i18n="months.06">CZE</span>
-          <span class="tour__year">2026</span>
-        </time>
-        <div class="tour__city">TYCHY / Stadion Miejski
-          <span class="tour__badge" data-i18n="tour.played">Zagrane</span>
-        </div>
-        <div class="tour__venue">
-          <span class="tour__venue-addr">ul. Edukacji 7</span>
-          <a href="https://www.facebook.com/sercanakolach" target="_blank" rel="noopener" class="tour__event-link">
-            <span data-i18n="tour.row1.event">Event: Serca Na Kołach</span>
-            <span class="tour__event-arrow" aria-hidden="true">↗</span>
-          </a>
-        </div>
-        <div class="tour__action">
-          <a href="https://www.facebook.com/photo/?fbid=1426104506219758&set=pcb.1426106189552923" target="_blank" rel="noopener" class="tour__ticket" data-i18n="tour.gallery">Galeria →</a>
-        </div>
-        <p class="tour__thanks" data-i18n="tour.thanks">Tychy — było pięknie! Wymarzony debiut! Do zobaczenia wkrótce :)</p>
-      </li>
-    </ol>
+    <section class="tour__group" aria-labelledby="tour-upcoming-title">
+      <h3 class="tour__group-title" id="tour-upcoming-title" data-i18n="tour.upcoming">Nadchodzące</h3>
+      <div class="empty-state">
+        <p class="empty-state__line empty-state__line--sub" data-i18n="tour.upcoming.empty">Obecnie brak ogłoszonych koncertów.</p>
+      </div>
+    </section>
+
+    <section class="tour__group" aria-labelledby="tour-past-title">
+      <h3 class="tour__group-title" id="tour-past-title" data-i18n="tour.past">Archiwalne</h3>
+      <ol class="tour__list">
+        <li class="tour__row tour__row--past">
+          <time class="tour__date" datetime="2026-06-14">
+            <span class="tour__day">14</span>
+            <span class="tour__month" data-i18n="months.06">CZE</span>
+            <span class="tour__year">2026</span>
+          </time>
+          <div class="tour__city">TYCHY / Stadion Miejski</div>
+          <div class="tour__venue">
+            <span class="tour__venue-addr">ul. Edukacji 7</span>
+            <a href="https://www.facebook.com/sercanakolach" target="_blank" rel="noopener" class="tour__event-link">
+              <span data-i18n="tour.row1.event">Event: Serca Na Kołach</span>
+              <span class="tour__event-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <div class="tour__action">
+            <a href="https://www.facebook.com/photo/?fbid=1426104506219758&set=pcb.1426106189552923" target="_blank" rel="noopener" class="tour__ticket" data-i18n="tour.gallery">Galeria →</a>
+          </div>
+          <p class="tour__thanks" data-i18n="tour.thanks">Tychy — było pięknie! Wymarzony debiut! Do zobaczenia wkrótce :)</p>
+        </li>
+      </ol>
+    </section>
 
     <aside class="tour__cta">
       <p class="tour__cta-text" data-i18n="tour.more">W sprawie koncertów i bookingu — skorzystaj z formularza.</p>
