@@ -187,6 +187,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ---------- HERO ---------- */
 .hero {
+  --hero-parallax: 0px;
   position: relative;
   min-height: 100svh;
   padding: 9rem var(--pad-x) 6rem;
@@ -204,14 +205,14 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   position: absolute;
   inset: -40% 0;
   z-index: -3;
-  background-image: url("/assets/img/bg-hero.jpg");
+  background-image: url("/assets/img/bg-hero.webp");
   background-size: cover;
   background-position: center 46%;
   background-repeat: no-repeat;
   opacity: 0.42;
   filter: grayscale(0.25) contrast(1.05);
   pointer-events: none;
-  transform: translate3d(0, var(--hero-parallax, 0px), 0);
+  transform: translate3d(0, var(--hero-parallax), 0);
   will-change: transform;
 }
 .hero::after {
@@ -240,7 +241,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   width: min(1100px, 92vw);
   opacity: 0;
   transform: translateY(30px);
-  animation: logo-in 1.4s var(--ease-out) 0.15s forwards;
+  animation: logo-in 0.6s var(--ease-out) 0.1s forwards;
   filter: drop-shadow(0 0 80px rgba(200, 50, 44, 0.08));
 }
 .hero__logo img {
@@ -256,6 +257,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .hero__subtitle {
   font-family: var(--ff-mono);
   font-size: clamp(0.8rem, 1vw, 0.95rem);
+  font-weight: 400;
   letter-spacing: 0.42em;
   text-transform: uppercase;
   color: var(--ink-dim);
@@ -264,7 +266,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   gap: 1.25rem;
   text-align: center;
   opacity: 0;
-  animation: fade-up 1s var(--ease-out) 0.7s forwards;
+  animation: fade-up 0.6s var(--ease-out) 0.3s forwards;
 }
 .hero__subtitle-bar {
   display: inline-block;
@@ -388,7 +390,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   flex-wrap: wrap;
   justify-content: center;
   opacity: 0;
-  animation: fade-up 1s var(--ease-out) 1s forwards;
+  animation: fade-up 0.6s var(--ease-out) 0.3s forwards;
 }
 
 /* ---------- Empty state ---------- */
@@ -453,7 +455,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   color: var(--bg);
   border-color: var(--ink);
 }
-.btn--primary:hover { color: var(--ink); border-color: var(--accent); }
+.btn--primary:hover {
+  background: var(--accent);
+  color: var(--ink);
+  border-color: var(--accent);
+}
 .btn--ghost { color: var(--ink); }
 .btn--ghost:hover { color: var(--ink); border-color: var(--accent); }
 
@@ -570,13 +576,13 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 
 .tour.section--bg::before {
-  background-image: url("/assets/img/bg-shows.jpg");
+  background-image: url("/assets/img/bg-shows.webp");
 }
 .lineup.section--bg::before {
-  background-image: url("/assets/img/bg-lineup.jpg");
+  background-image: url("/assets/img/bg-lineup.webp");
 }
 .contact.section--bg::before {
-  background-image: url("/assets/img/bg-contact.jpg");
+  background-image: url("/assets/img/bg-contact.webp");
 }
 
 @media (prefers-reduced-motion: reduce) {

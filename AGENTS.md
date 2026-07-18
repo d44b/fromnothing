@@ -43,7 +43,8 @@ This table is a minimum checklist, not an exhaustive list. Search the repository
 
 ## Tour and event rules
 
-- Every new or changed tour entry must be reflected in JSON-LD.
+- Every new or changed upcoming tour entry must be reflected in JSON-LD.
+- Past concerts may remain in the visible archive, but they must be removed from JSON-LD, including references from parent entities such as `MusicGroup`.
 - Use ISO dates in `datetime`, JSON-LD, and sitemap fields where applicable.
 - Visible status and structured status must agree. Past, cancelled, postponed, rescheduled, and upcoming events must not contradict one another.
 - Do not add ticket availability, prices, event status, venue data, or organizer information unless explicitly provided or already present in a trusted project source.

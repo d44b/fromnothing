@@ -30,6 +30,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="image" href="/assets/img/bg-hero.webp" type="image/webp" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Teko:wght@300;400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/style.css" />
   <script type="application/ld+json">
@@ -79,31 +80,12 @@
           "https://www.youtube.com/@FromNothingPoland"
         ],
         "member": [
-          { "@type": "Person", "name": "Mery", "description": "Wokal" },
-          { "@type": "Person", "name": "Janusz", "description": "Wokal i gitara" },
-          { "@type": "Person", "name": "Patryk", "description": "Gitara" },
-          { "@type": "Person", "name": "Wojtek", "description": "Perkusja" },
-          { "@type": "Person", "name": "Damian", "description": "Gitara basowa" }
-        ],
-        "event": { "@id": "https://fromnothing.pl/#event-2026-06-14-tychy" }
-      },
-      {
-        "@type": "MusicEvent",
-        "@id": "https://fromnothing.pl/#event-2026-06-14-tychy",
-        "name": "From Nothing — Serca na Kołach",
-        "startDate": "2026-06-14",
-        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-        "performer": { "@id": "https://fromnothing.pl/#band" },
-        "location": {
-          "@type": "Place",
-          "name": "Stadion Miejski w Tychach",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "ul. Edukacji 7",
-            "addressLocality": "Tychy",
-            "addressCountry": "PL"
-          }
-        }
+          { "@type": "Person", "name": "Mery", "description": "Vocals" },
+          { "@type": "Person", "name": "Janusz", "description": "Vocals and guitar" },
+          { "@type": "Person", "name": "Patryk", "description": "Guitar" },
+          { "@type": "Person", "name": "Wojtek", "description": "Drums" },
+          { "@type": "Person", "name": "Damian", "description": "Bass guitar" }
+        ]
       }
     ]
   }
@@ -115,7 +97,7 @@
   <!-- NAV -->
   <header class="nav">
     <a href="#top" class="nav__brand" aria-label="From Nothing — home">
-      <img src="/assets/img/logo-symbol-white.png" alt="" class="nav__logo" />
+      <img src="/assets/img/logo-symbol-white.png" alt="" class="nav__logo" width="403" height="404" />
       <span class="nav__name">FROM NOTHING</span>
     </a>
     <nav class="nav__links" id="navLinks" aria-label="Primary">
@@ -149,20 +131,20 @@
 
   <!-- HERO -->
   <section id="top" class="hero">
-    <h1 class="visually-hidden">From Nothing - Linkin Park Tribute Band</h1>
     <div class="hero__ghost" aria-hidden="true">
-      <img src="/assets/img/logo-symbol-white.png" alt="" />
+      <img src="/assets/img/logo-symbol-white.png" alt="" width="403" height="404" />
     </div>
 
     <div class="hero__logo">
-      <img src="/assets/img/logo-full-white.png" alt="From Nothing" />
+      <img src="/assets/img/logo-full-white.webp" alt="From Nothing" width="832" height="404" fetchpriority="high" />
     </div>
 
-    <p class="hero__subtitle">
+    <h1 class="hero__subtitle">
+      <span class="visually-hidden">From Nothing — </span>
       <span class="hero__subtitle-bar" aria-hidden="true"></span>
       <span data-i18n="hero.subtitle">Linkin Park Tribute Band</span>
       <span class="hero__subtitle-bar" aria-hidden="true"></span>
-    </p>
+    </h1>
 
     <div class="hero__cta">
       <a href="#tour" class="btn btn--primary" data-i18n="hero.cta.tour">Zobacz koncerty →</a>
@@ -251,7 +233,7 @@
     <div class="lineup__grid">
       <article class="member member--photo">
         <div class="member__portrait">
-          <img src="/assets/img/member-mery.jpg" alt="Mery — wokal" loading="lazy" />
+          <img src="/assets/img/member-mery.webp" alt="Mery — wokal" width="599" height="900" loading="lazy" decoding="async" />
         </div>
         <div class="member__meta">
           <h3 class="member__role" data-i18n="role.vox">Wokal</h3>
@@ -261,7 +243,7 @@
 
       <article class="member member--photo">
         <div class="member__portrait">
-          <img src="/assets/img/member-janusz.jpg" alt="Janusz — wokal, gitara" loading="lazy" />
+          <img src="/assets/img/member-janusz.webp" alt="Janusz — wokal, gitara" width="720" height="900" loading="lazy" decoding="async" />
         </div>
         <div class="member__meta">
           <h3 class="member__role" data-i18n="role.voxGuitar">Wokal/Gitara</h3>
@@ -271,7 +253,7 @@
 
       <article class="member member--photo">
         <div class="member__portrait">
-          <img src="/assets/img/member-patryk2.jpg" alt="Patryk — gitara" loading="lazy" />
+          <img src="/assets/img/member-patryk2.webp" alt="Patryk — gitara" width="1024" height="1536" loading="lazy" decoding="async" />
         </div>
         <div class="member__meta">
           <h3 class="member__role" data-i18n="role.guitar">Gitara</h3>
@@ -281,7 +263,7 @@
 
       <article class="member member--photo">
         <div class="member__portrait">
-          <img src="/assets/img/member-wojtek.jpg" alt="Wojtek — perkusja" loading="lazy" />
+          <img src="/assets/img/member-wojtek.webp" alt="Wojtek — perkusja" width="600" height="900" loading="lazy" decoding="async" />
         </div>
         <div class="member__meta">
           <h3 class="member__role" data-i18n="role.drums">Perkusja</h3>
@@ -291,7 +273,7 @@
 
       <article class="member member--photo">
         <div class="member__portrait">
-          <img src="/assets/img/member-damian.jpg" alt="Damian — bas" loading="lazy" />
+          <img src="/assets/img/member-damian.webp" alt="Damian — bas" width="916" height="1374" loading="lazy" decoding="async" />
         </div>
         <div class="member__meta">
           <h3 class="member__role" data-i18n="role.bass">Bas</h3>
@@ -364,7 +346,7 @@
   <!-- FOOTER -->
   <footer class="footer">
     <div class="footer__top">
-      <img src="/assets/img/wordmark-white.png" alt="From Nothing" class="footer__wordmark" />
+      <img src="/assets/img/wordmark-white.png" alt="From Nothing" class="footer__wordmark" width="469" height="298" loading="lazy" decoding="async" />
     </div>
     <div class="footer__bottom">
       <span class="footer__copy">© <span id="year">2026</span> FROM NOTHING · <span data-i18n="footer.rights">Wszelkie prawa zastrzeżone</span></span>
