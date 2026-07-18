@@ -803,9 +803,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* ---------- LINEUP ---------- */
 .lineup__grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-template-columns: repeat(5, 1fr);
   gap: 0;
   border: 1px solid var(--line);
+}
+@media (max-width: 1200px) {
+  .lineup__grid { grid-template-columns: repeat(3, 1fr); }
 }
 .member {
   padding: 2rem 1.5rem 2rem;
@@ -1199,9 +1202,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
   .empty-state { padding: 1.75rem 0; }
 
-  .lineup__grid {
-    grid-template-columns: 1fr 1fr;
-  }
   .member {
     padding: 1.75rem 1rem;
     min-height: 180px;
