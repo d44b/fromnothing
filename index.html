@@ -3,12 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FROM NOTHING — Linkin Park Tribute Band</title>
-  <meta name="description" content="From Nothing — Linkin Park Tribute Band. Oficjalna strona zespołu." />
-  <meta property="og:title" content="FROM NOTHING" />
-  <meta property="og:description" content="Official site." />
-  <meta property="og:image" content="/assets/img/og-image.png" />
+  <title>From Nothing — Linkin Park Tribute Band</title>
+  <meta name="description" content="From Nothing - Linkin Park Tribute Band. Sprawdź gdzie gramy, poznaj skład i skontaktuj się w sprawie koncertów." />
+  <link rel="canonical" href="https://fromnothing.pl/" />
+  <link rel="alternate" hreflang="pl" href="https://fromnothing.pl/" />
+  <link rel="alternate" hreflang="en" href="https://fromnothing.pl/?lang=en" />
+  <link rel="alternate" hreflang="x-default" href="https://fromnothing.pl/" />
+  <meta property="og:title" content="From Nothing — Linkin Park Tribute Band" />
+  <meta property="og:description" content="Oficjalna strona polskiego tribute bandu Linkin Park: koncerty, skład i booking." />
+  <meta property="og:url" content="https://fromnothing.pl/" />
   <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="From Nothing" />
+  <meta property="og:locale" content="pl_PL" />
+  <meta property="og:image" content="https://fromnothing.pl/assets/img/og-image.png" />
+  <meta property="og:image:width" content="1080" />
+  <meta property="og:image:height" content="1080" />
+  <meta property="og:image:type" content="image/png" />
+  <meta property="og:image:alt" content="From Nothing — Linkin Park Tribute Band" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="From Nothing — Linkin Park Tribute Band" />
+  <meta name="twitter:description" content="Oficjalna strona polskiego Linkin Park tribute bandu: koncerty, skład i booking." />
+  <meta name="twitter:image" content="https://fromnothing.pl/assets/img/og-image.png" />
+  <meta name="twitter:image:alt" content="From Nothing — Linkin Park Tribute Band" />
   <link rel="icon" type="image/png" sizes="32x32" href="/assets/img/favicon-32.png" />
   <link rel="icon" type="image/png" sizes="512x512" href="/assets/img/favicon.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png" />
@@ -16,6 +32,82 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Teko:wght@300;400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/assets/css/style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://fromnothing.pl/#website",
+        "url": "https://fromnothing.pl/",
+        "name": "From Nothing - Linkin Park Tribute Band",
+        "inLanguage": ["pl", "en"],
+        "publisher": { "@id": "https://fromnothing.pl/#band" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://fromnothing.pl/#webpage-pl",
+        "url": "https://fromnothing.pl/",
+        "name": "From Nothing — Linkin Park Tribute Band",
+        "description": "From Nothing - Linkin Park Tribute Band. Sprawdź gdzie gramy, poznaj skład i skontaktuj się w sprawie koncertów.",
+        "inLanguage": "pl",
+        "isPartOf": { "@id": "https://fromnothing.pl/#website" },
+        "about": { "@id": "https://fromnothing.pl/#band" }
+      },
+      {
+        "@type": "WebPage",
+        "@id": "https://fromnothing.pl/?lang=en#webpage-en",
+        "url": "https://fromnothing.pl/?lang=en",
+        "name": "From Nothing — Linkin Park Tribute Band",
+        "description": "Official website of From Nothing, a Polish Linkin Park tribute band. See shows, meet the lineup, and get in touch about booking.",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://fromnothing.pl/#website" },
+        "about": { "@id": "https://fromnothing.pl/#band" }
+      },
+      {
+        "@type": "MusicGroup",
+        "@id": "https://fromnothing.pl/#band",
+        "name": "From Nothing",
+        "url": "https://fromnothing.pl/",
+        "description": "Linkin Park Tribute Band",
+        "genre": ["Alternative rock", "Nu metal", "Tribute band"],
+        "image": "https://fromnothing.pl/assets/img/og-image.png",
+        "logo": "https://fromnothing.pl/assets/img/logo-full-black.png",
+        "email": "kontakt@fromnothing.pl",
+        "sameAs": [
+          "https://www.facebook.com/FromNothingPoland/",
+          "https://www.youtube.com/@FromNothingPoland"
+        ],
+        "member": [
+          { "@type": "Person", "name": "Mery", "description": "Wokal" },
+          { "@type": "Person", "name": "Janusz", "description": "Wokal i gitara" },
+          { "@type": "Person", "name": "Patryk", "description": "Gitara" },
+          { "@type": "Person", "name": "Wojtek", "description": "Perkusja" },
+          { "@type": "Person", "name": "Damian", "description": "Gitara basowa" }
+        ],
+        "event": { "@id": "https://fromnothing.pl/#event-2026-06-14-tychy" }
+      },
+      {
+        "@type": "MusicEvent",
+        "@id": "https://fromnothing.pl/#event-2026-06-14-tychy",
+        "name": "From Nothing — Serca na Kołach",
+        "startDate": "2026-06-14",
+        "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+        "performer": { "@id": "https://fromnothing.pl/#band" },
+        "location": {
+          "@type": "Place",
+          "name": "Stadion Miejski w Tychach",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "ul. Edukacji 7",
+            "addressLocality": "Tychy",
+            "addressCountry": "PL"
+          }
+        }
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <div class="scanlines" aria-hidden="true"></div>
@@ -57,6 +149,7 @@
 
   <!-- HERO -->
   <section id="top" class="hero">
+    <h1 class="visually-hidden">From Nothing - Linkin Park Tribute Band</h1>
     <div class="hero__ghost" aria-hidden="true">
       <img src="/assets/img/logo-symbol-white.png" alt="" />
     </div>

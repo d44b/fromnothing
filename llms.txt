@@ -1,0 +1,26 @@
+# FROM NOTHING - Linkin Park tribute band
+
+> Official website of From Nothing, a Polish Linkin Park tribute band.
+
+From Nothing performs the music of Linkin Park live. This website contains the band's concert information, lineup, official social profiles, and booking contact details.
+
+## Language versions
+
+The official website is available in two language variants:
+
+- [Polish version](https://fromnothing.pl/)
+- [English version](https://fromnothing.pl/?lang=en)
+
+## Members
+
+- Mery: vocals
+- Janusz: vocals and guitar
+- Patryk: guitar
+- Wojtek: drums
+- Damian: bass guitar
+
+## Official profiles and contact
+
+- [Facebook](https://www.facebook.com/FromNothingPoland/)
+- [YouTube](https://www.youtube.com/@FromNothingPoland)
+- Booking: kontakt@fromnothing.pl

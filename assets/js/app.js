@@ -87,15 +87,59 @@
 
   const STORAGE_KEY = "fn:lang";
   const supported = ["pl", "en"];
+  const LANG_URLS = {
+    pl: "https://fromnothing.pl/",
+    en: "https://fromnothing.pl/?lang=en"
+  };
+  const META = {
+    pl: {
+      title: "From Nothing — Linkin Park Tribute Band",
+      description: "From Nothing - Linkin Park Tribute Band. Sprawdź gdzie gramy, poznaj skład i skontaktuj się w sprawie koncertów.",
+      socialDescription: "Oficjalna strona polskiego tribute bandu Linkin Park: koncerty, skład i booking.",
+      locale: "pl_PL"
+    },
+    en: {
+      title: "From Nothing — Linkin Park Tribute Band",
+      description: "Official website of From Nothing, a Polish Linkin Park tribute band. See shows, meet the lineup, and get in touch about booking.",
+      socialDescription: "Official website of the Polish Linkin Park tribute band: shows, lineup, and booking.",
+      locale: "en_US"
+    }
+  };
 
   function detectLang() {
+    const queryLang = new URLSearchParams(window.location.search).get("lang");
+    if (queryLang && supported.includes(queryLang)) return queryLang;
     const saved = localStorage.getItem(STORAGE_KEY);
     if (saved && supported.includes(saved)) return saved;
     const nav = (navigator.language || "en").slice(0, 2).toLowerCase();
     return supported.includes(nav) ? nav : "pl";
   }
 
-  function applyLang(lang) {
+  function setMetaContent(selector, value) {
+    const element = document.querySelector(selector);
+    if (element) element.setAttribute("content", value);
+  }
+
+  function updateLanguageMetadata(lang) {
+    const meta = META[lang];
+    document.title = meta.title;
+    document.querySelector('link[rel="canonical"]')?.setAttribute("href", LANG_URLS[lang]);
+    setMetaContent('meta[name="description"]', meta.description);
+    setMetaContent('meta[property="og:description"]', meta.socialDescription);
+    setMetaContent('meta[property="og:url"]', LANG_URLS[lang]);
+    setMetaContent('meta[property="og:locale"]', meta.locale);
+    setMetaContent('meta[name="twitter:title"]', meta.title);
+    setMetaContent('meta[name="twitter:description"]', meta.socialDescription);
+  }
+
+  function languageUrl(lang) {
+    const url = new URL(window.location.href);
+    if (lang === "en") url.searchParams.set("lang", "en");
+    else url.searchParams.delete("lang");
+    return `${url.pathname}${url.search}${url.hash}`;
+  }
+
+  function applyLang(lang, { updateUrl = false, replaceUrl = false } = {}) {
     const dict = I18N[lang];
     document.documentElement.lang = lang;
     document.querySelectorAll("[data-i18n]").forEach((el) => {
@@ -111,13 +155,29 @@
       btn.classList.toggle("is-active", active);
       btn.setAttribute("aria-pressed", String(active));
     });
+    updateLanguageMetadata(lang);
     localStorage.setItem(STORAGE_KEY, lang);
+
+    if (updateUrl) {
+      const method = replaceUrl ? "replaceState" : "pushState";
+      window.history[method]({ lang }, "", languageUrl(lang));
+    }
   }
 
   function initLang() {
-    applyLang(detectLang());
+    const initialLang = detectLang();
+    const queryLang = new URLSearchParams(window.location.search).get("lang");
+    const urlNeedsSync = (initialLang === "en" && queryLang !== "en") ||
+      (initialLang === "pl" && queryLang !== null);
+    applyLang(initialLang, { updateUrl: urlNeedsSync, replaceUrl: true });
+
     document.querySelectorAll(".lang-btn").forEach((btn) => {
-      btn.addEventListener("click", () => applyLang(btn.dataset.lang));
+      btn.addEventListener("click", () => applyLang(btn.dataset.lang, { updateUrl: true }));
+    });
+
+    window.addEventListener("popstate", () => {
+      const queryLang = new URLSearchParams(window.location.search).get("lang");
+      applyLang(queryLang === "en" ? "en" : "pl");
     });
   }
 
