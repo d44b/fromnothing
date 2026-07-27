@@ -127,35 +127,38 @@
 
   <main>
     <section class="section watch section--bg">
-      <header class="section__head">
-        <span class="section__num" data-i18n="watch.kicker">WIDEO /</span>
-        <h1 class="section__title" data-i18n="watch.title">Posłuchaj nas</h1>
-        <p class="section__sub" data-i18n="watch.sub">Kompilacja z próby</p>
-      </header>
+      <!-- The page opens straight on the video; the heading stays for
+           assistive technology and document structure. -->
+      <h1 class="visually-hidden" data-i18n="watch.title">Posłuchaj nas — From Nothing</h1>
 
       <div class="watch__stage">
-        <div class="watch__frame" data-state="loading">
+        <div class="watch__frame">
           <video
             class="watch__video"
             id="watchVideo"
             poster="/assets/img/poster-live-2026.webp"
             width="1600" height="900"
-            controls playsinline muted preload="metadata"
+            controls playsinline preload="metadata"
           >
             <source src="/media/live-2026-kompilacja.mp4" type="video/mp4" />
           </video>
 
-          <button type="button" class="watch__overlay" id="watchOverlay" hidden>
-            <span class="watch__overlay-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" class="watch__icon-sound">
-                <path d="M3 10v4h3.5L11 18V6L6.5 10H3zm11.5-1.4v6.8c1.2-.6 2-1.9 2-3.4s-.8-2.8-2-3.4zm0-4.1v2.1c2.3.8 4 3 4 5.4s-1.7 4.6-4 5.4v2.1c3.4-.9 6-4 6-7.5s-2.6-6.6-6-7.5z"/>
-              </svg>
-              <svg viewBox="0 0 24 24" class="watch__icon-play">
-                <path d="M8 5v14l11-7L8 5z"/>
-              </svg>
+          <button type="button" class="watch__play" id="watchPlay">
+            <img
+              src="/assets/img/logo-full-white.webp"
+              alt=""
+              class="watch__play-logo"
+              width="832" height="404"
+              fetchpriority="high"
+            />
+            <span class="watch__play-btn" aria-hidden="true">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5z"/></svg>
             </span>
-            <span class="watch__overlay-label" id="watchOverlayLabel" data-i18n="watch.unmute">Włącz dźwięk</span>
+            <span class="visually-hidden" data-i18n="watch.play">Odtwórz wideo</span>
           </button>
+          <!-- Without scripting the start screen cannot play the video, so it
+               steps aside and the native controls take over. -->
+          <noscript><style>.watch__play { display: none; }</style></noscript>
         </div>
 
         <p class="watch__disclaimer" data-i18n="watch.disclaimer">
@@ -188,9 +191,6 @@
           </a>
         </div>
 
-        <p class="watch__note" data-i18n="watch.note">
-          W sprawie koncertów i bookingu — napisz na kontakt@fromnothing.pl. Rider techniczny przesyłamy od ręki.
-        </p>
       </div>
     </section>
   </main>

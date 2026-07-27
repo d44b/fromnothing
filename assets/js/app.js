@@ -38,19 +38,15 @@
       "form.ok": "Wiadomość przygotowana — dokończ w swoim kliencie poczty.",
       "form.err": "Błąd. Spróbuj ponownie.",
       "footer.rights": "Wszelkie prawa zastrzeżone",
-      "watch.kicker": "WIDEO /",
-      "watch.title": "Posłuchaj nas",
-      "watch.sub": "Kompilacja z próby",
+      "watch.title": "Posłuchaj nas — From Nothing",
       "watch.disclaimer": "Nagranie pomocnicze z próby — to nie zapis koncertu. Prezentujemy fragmenty wykonań części setlisty; na próbie ćwiczymy program, a pełny performance pokazujemy na scenie. Nad jakością materiałów promocyjnych pracujemy.",
-      "watch.unmute": "Włącz dźwięk",
-      "watch.play": "Odtwórz",
+      "watch.play": "Odtwórz wideo",
       "watch.fallback": "Nie udało się odtworzyć wideo w przeglądarce.",
       "watch.fallback.link": "Otwórz plik wideo",
       "watch.contact": "Kontakt",
       "watch.contact.subject": "Zapytanie o koncert — From Nothing",
       "watch.rider": "Rider techniczny",
       "watch.rider.status": "w przygotowaniu",
-      "watch.note": "W sprawie koncertów i bookingu — napisz na kontakt@fromnothing.pl. Rider techniczny przesyłamy od ręki.",
       "a11y.newTab": "(otwiera się w nowej karcie)",
       "role.vox": "Wokal",
       "role.voxGuitar": "Wokal/Gitara",
@@ -95,19 +91,15 @@
       "form.ok": "Message prepared — finish in your mail client.",
       "form.err": "Error. Please try again.",
       "footer.rights": "All rights reserved",
-      "watch.kicker": "VIDEO /",
-      "watch.title": "Listen to us",
-      "watch.sub": "Compilation from rehearsal",
+      "watch.title": "Listen to us — From Nothing",
       "watch.disclaimer": "A working recording from rehearsal — not a concert recording. These are excerpts from part of our setlist; at rehearsal we run through the programme, the full performance happens on stage. We are working on the quality of our promotional material.",
-      "watch.unmute": "Turn on sound",
-      "watch.play": "Play",
+      "watch.play": "Play video",
       "watch.fallback": "The video could not be played in your browser.",
       "watch.fallback.link": "Open the video file",
       "watch.contact": "Contact",
       "watch.contact.subject": "Booking enquiry — From Nothing",
       "watch.rider": "Technical rider",
       "watch.rider.status": "in preparation",
-      "watch.note": "For shows and booking — write to kontakt@fromnothing.pl. We send the technical rider on request.",
       "a11y.newTab": "(opens in a new tab)",
       "role.vox": "Vocals",
       "role.voxGuitar": "Vocals/Guitar",
@@ -361,88 +353,34 @@
     update();
   }
 
-  // /posluchajnas — the video starts on its own, but browsers only allow that
-  // while muted, so the prompt over the picture turns the sound on. Falls back
-  // to a plain play prompt whenever autoplay is refused or unwanted.
+  // /posluchajnas — a start screen over the poster instead of autoplay.
+  // Nothing of the 386 MB file is fetched until the visitor asks for it, and
+  // because the click is a user gesture the video may begin with sound.
   function initWatch() {
     const video = document.getElementById("watchVideo");
-    if (!video) return;
-
-    const frame = video.closest(".watch__frame");
-    const overlay = document.getElementById("watchOverlay");
-    const label = document.getElementById("watchOverlayLabel");
+    const start = document.getElementById("watchPlay");
+    if (!video || !start) return;
     const fallback = document.getElementById("watchFallback");
-    if (!frame || !overlay || !label) return;
-
-    // Track whether the visitor chose a position, so unmuting does not yank
-    // them back to the start of the take.
-    let userSeeked = false;
-    video.addEventListener("seeking", () => {
-      if (!video.ended) userSeeked = true;
-    });
 
     function showFallback() {
-      overlay.hidden = true;
+      start.hidden = true;
       if (fallback) fallback.hidden = false;
     }
 
-    function prompt(key, state) {
-      frame.dataset.state = state;
-      // Keep data-i18n in step so a language switch relabels the button.
-      label.dataset.i18n = key;
-      const dict = I18N[document.documentElement.lang] || I18N.pl;
-      if (dict[key] !== undefined) label.textContent = dict[key];
-      overlay.hidden = false;
-    }
-
-    function sync() {
-      if (video.error) return showFallback();
-      if (video.paused) return prompt("watch.play", "paused");
-      if (video.muted) return prompt("watch.unmute", "muted");
-      frame.dataset.state = "playing";
-      overlay.hidden = true;
-    }
-
-    overlay.addEventListener("click", () => {
-      if (video.muted) {
-        if (!userSeeked && video.currentTime > 0) video.currentTime = 0;
-        video.muted = false;
+    start.addEventListener("click", () => {
+      start.hidden = true;
+      const played = video.play();
+      if (played && typeof played.catch === "function") {
+        // Playback refused — put the start screen back rather than leaving
+        // the visitor with a still frame and no explanation.
+        played.catch(() => {
+          start.hidden = false;
+        });
       }
-      const started = video.play();
-      if (started && typeof started.catch === "function") {
-        started.catch(() => sync());
-      }
-      sync();
     });
 
-    ["play", "pause", "ended", "volumechange"].forEach((evt) =>
-      video.addEventListener(evt, sync)
-    );
     video.addEventListener("error", showFallback);
     video.querySelector("source")?.addEventListener("error", showFallback);
-
-    // Do not pull a large file down uninvited on a metered connection, and
-    // treat reduced-motion as a request not to start moving pictures.
-    const connection = navigator.connection || navigator.webkitConnection;
-    const metered =
-      !!connection &&
-      (connection.saveData === true ||
-        /(^|-)2g$/.test(connection.effectiveType || ""));
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    if (metered || reducedMotion) {
-      prompt("watch.play", "paused");
-      return;
-    }
-
-    const attempt = video.play();
-    if (attempt && typeof attempt.then === "function") {
-      attempt.then(sync).catch(() => prompt("watch.play", "paused"));
-    } else {
-      sync();
-    }
   }
 
   function initNavToggle() {

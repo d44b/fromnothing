@@ -1067,15 +1067,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .watch.section--bg::before {
   background-image: url("/assets/img/bg-shows.webp");
 }
-/* Extra top padding so the heading clears the fixed nav on this short page. */
-.watch {
-  padding-top: calc(var(--section-y) + 3.5rem);
-}
-/* "Posłuchaj nas" is far longer than the homepage's one-word section titles,
-   so it steps down to the next size in the scale instead of --fs-huge. */
-.watch .section__title {
-  font-size: var(--fs-big);
-  text-wrap: balance;
+/* The page is a single video, so it opens straight on the picture: enough top
+   room to clear the fixed nav, and none of the tall section rhythm below. */
+.watch.section {
+  padding-top: clamp(4.5rem, 7vw, 6.5rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
 }
 /* `.section--bg > *` adds the page gutter to direct children, so the video
    frame sits one level deeper and this wrapper carries the gutter instead. */
@@ -1098,6 +1094,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   border: 1px dashed var(--line);
   pointer-events: none;
   opacity: 0.45;
+  z-index: 3;
 }
 .watch__frame::after {
   content: "";
@@ -1107,6 +1104,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   border-top: 1px solid var(--accent-hot);
   border-right: 1px solid var(--accent-hot);
   pointer-events: none;
+  z-index: 3;
 }
 
 .watch__video {
@@ -1119,68 +1117,97 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   background: #000;
 }
 
-/* Muted-autoplay prompt. Sits above the picture but clear of the native
-   controls, so seeking and volume stay reachable while it is shown. */
-.watch__overlay {
+/* Full-cover start screen: wordmark over the poster with a play control.
+   Nothing is fetched until it is used, and because the click is a user
+   gesture the video may start with sound. */
+.watch__play {
   position: absolute;
-  left: 50%;
-  top: 46%;
-  transform: translate(-50%, -50%);
+  inset: 10px;
   z-index: 2;
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 0.7rem;
-  padding: 1rem 1.5rem;
-  font-family: var(--ff-mono);
-  font-size: var(--fs-sm);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--bg);
-  background: var(--ink);
-  border: 1px solid var(--ink);
-  transition: background 0.25s var(--ease-out), color 0.25s var(--ease-out),
-    border-color 0.25s var(--ease-out);
+  justify-content: center;
+  gap: clamp(1.25rem, 3.5vw, 2.5rem);
+  padding: 1.5rem;
+  background: linear-gradient(
+    180deg,
+    rgba(10, 9, 8, 0.45) 0%,
+    rgba(10, 9, 8, 0.62) 100%
+  );
+  transition: background 0.3s var(--ease-out);
 }
-.watch__overlay:hover {
+.watch__play:hover,
+.watch__play:focus-visible {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 9, 8, 0.3) 0%,
+    rgba(10, 9, 8, 0.5) 100%
+  );
+}
+.watch__play-logo {
+  width: min(42%, 340px);
+  height: auto;
+  opacity: 0.92;
+  pointer-events: none;
+}
+/* Circular mark echoes the symbol inside the From Nothing logo. */
+.watch__play-btn {
+  display: grid;
+  place-items: center;
+  width: clamp(58px, 8vw, 88px);
+  aspect-ratio: 1;
+  border-radius: 50%;
   background: var(--accent);
-  color: var(--ink);
-  border-color: var(--accent);
+  box-shadow: 0 0 0 1px rgba(245, 241, 232, 0.14),
+    0 18px 44px rgba(0, 0, 0, 0.45);
+  transition: background 0.25s var(--ease-out), transform 0.25s var(--ease-out);
 }
-.watch__overlay-icon svg {
-  display: block;
-  width: 1.15rem;
-  height: 1.15rem;
-  fill: currentColor;
+.watch__play-btn svg {
+  width: 40%;
+  height: 40%;
+  fill: var(--ink);
+  /* optical centring — the triangle's mass sits left of its box */
+  margin-left: 8%;
 }
-.watch__icon-play { display: none; }
-.watch__frame[data-state="paused"] .watch__icon-sound { display: none; }
-.watch__frame[data-state="paused"] .watch__icon-play { display: block; }
+.watch__play:hover .watch__play-btn,
+.watch__play:focus-visible .watch__play-btn {
+  background: var(--accent-hot);
+  transform: scale(1.07);
+}
+@media (prefers-reduced-motion: reduce) {
+  .watch__play:hover .watch__play-btn,
+  .watch__play:focus-visible .watch__play-btn { transform: none; }
+}
 
 /* Small print about the footage itself, directly under the picture. */
 .watch__disclaimer {
-  margin-top: 1rem;
+  margin: 1.25rem auto 0;
+  max-width: 76ch;
   font-family: var(--ff-mono);
   font-size: var(--fs-xs);
   letter-spacing: 0.08em;
-  line-height: 1.7;
+  line-height: 1.75;
   color: var(--ink-faint);
-  max-width: 68ch;
+  text-align: center;
 }
 
 .watch__fallback {
-  margin-top: 1rem;
+  margin: 1rem auto 0;
   font-family: var(--ff-mono);
   font-size: var(--fs-sm);
   letter-spacing: 0.06em;
   color: var(--accent-hot);
+  text-align: center;
 }
 .watch__fallback a { text-decoration: underline; }
 
 .watch__actions {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 1rem;
-  margin-top: 2.25rem;
+  margin-top: 1.75rem;
 }
 .watch__rider {
   gap: 0.7rem;
@@ -1195,23 +1222,10 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   white-space: nowrap;
 }
 
-.watch__note {
-  margin-top: 1.5rem;
-  font-family: var(--ff-mono);
-  font-size: var(--fs-xs);
-  letter-spacing: 0.12em;
-  line-height: 1.6;
-  color: var(--ink-faint);
-  max-width: 60ch;
-}
-
 @media (max-width: 640px) {
   .watch__actions { flex-direction: column; }
   .watch__action { width: 100%; justify-content: center; }
-  .watch__overlay {
-    padding: 0.8rem 1.1rem;
-    font-size: var(--fs-xs);
-  }
+  .watch__play-logo { width: min(58%, 240px); }
 }
 
 @media (max-width: 766px) {
