@@ -3,7 +3,9 @@
 // Replacing the object in the bucket publishes a new offer without a deploy.
 import { serveObject } from "./_r2.js";
 
-const KEY = "fromnothing-oferta-26-06-2026.pdf";
+// Dated key: the name is what a promoter sees when they save the file, so it
+// changes whenever the document does. Previous editions stay in the bucket.
+const KEY = "fromnothing-oferta-27-07-2026.pdf";
 
 export function onRequest({ request, env }) {
   return serveObject({

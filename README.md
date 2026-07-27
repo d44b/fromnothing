@@ -36,7 +36,7 @@ never redirected off `fromnothing.pl`.
 
 | Route | R2 object key | Notes |
 | --- | --- | --- |
-| `/oferta` | `fromnothing-oferta-26-06-2026.pdf` | Booking offer, served inline |
+| `/oferta` | `fromnothing-oferta-27-07-2026.pdf` | Booking offer, served inline |
 | `/rider` | `fromnothing-rider-tech.pdf` | Technical rider; placeholder for now |
 | `/media/live-2026-kompilacja.mp4` | `fromnothing-live-2026-kompilacja.mp4` | Rehearsal compilation, HTTP Range supported |
 
@@ -88,11 +88,21 @@ through the S3-compatible API with an R2 access key pair.
 ## Offer PDF
 
 The offer is generated from a Typst source that is not kept in this repository.
-The published `fromnothing-oferta-26-06-2026.pdf` additionally carries a
-`POSŁUCHAJ NAS` QR code on page 1 pointing at
-`https://fromnothing.pl/posluchajnas`, applied as a vector overlay on top of the
-Typst output. When the offer is regenerated, that overlay has to be reapplied —
-or, better, the QR code should be moved into the Typst source itself.
+The published PDF carries two changes applied on top of that Typst output:
+
+- a `POSŁUCHAJ NAS` QR code on page 1 pointing at
+  `https://fromnothing.pl/posluchajnas`, drawn as a vector overlay;
+- the page-1 band photo, replaced in place so the document does not carry both
+  images (`assets/img/bg-hero_<date>.webp` is the same shot, cropped to the
+  page's 1.857 aspect).
+
+**Both are lost when the offer is regenerated from Typst.** Getting the `.typ`
+source and moving the QR code and the photo into it is the durable fix.
+
+Objects are keyed by date (`fromnothing-oferta-DD-MM-YYYY.pdf`) because the key
+is the filename a promoter sees on saving. `functions/oferta.js` holds the key of
+the current edition; earlier editions stay in the bucket and can be removed with
+`wrangler r2 object delete`.
 
 ## Cache busting after a CSS or JS change
 
