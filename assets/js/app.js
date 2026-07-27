@@ -364,16 +364,25 @@
 
     function showFallback() {
       start.hidden = true;
+      video.setAttribute("controls", "");
       if (fallback) fallback.hidden = false;
     }
 
+    // Mobile browsers draw their own start button over the poster, which would
+    // show through the start screen as a second play control. The native
+    // controls are handed back the moment playback begins. The attribute stays
+    // in the markup so that without scripting they are there from the start.
+    video.removeAttribute("controls");
+
     start.addEventListener("click", () => {
       start.hidden = true;
+      video.setAttribute("controls", "");
       const played = video.play();
       if (played && typeof played.catch === "function") {
         // Playback refused — put the start screen back rather than leaving
         // the visitor with a still frame and no explanation.
         played.catch(() => {
+          video.removeAttribute("controls");
           start.hidden = false;
         });
       }
