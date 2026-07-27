@@ -1137,6 +1137,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   );
   transition: background 0.3s var(--ease-out);
 }
+/* The `display` above is an author style, so it would otherwise beat the user
+   agent's `[hidden] { display: none }` and the start screen would stay on
+   screen after playback begins. */
+.watch__play[hidden] {
+  display: none;
+}
 .watch__play:hover,
 .watch__play:focus-visible {
   background: linear-gradient(
