@@ -1071,6 +1071,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .watch {
   padding-top: calc(var(--section-y) + 3.5rem);
 }
+/* "Posłuchaj nas" is far longer than the homepage's one-word section titles,
+   so it steps down to the next size in the scale instead of --fs-huge. */
+.watch .section__title {
+  font-size: var(--fs-big);
+  text-wrap: balance;
+}
 /* `.section--bg > *` adds the page gutter to direct children, so the video
    frame sits one level deeper and this wrapper carries the gutter instead. */
 .section--bg > .watch__stage {
@@ -1149,6 +1155,17 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .watch__icon-play { display: none; }
 .watch__frame[data-state="paused"] .watch__icon-sound { display: none; }
 .watch__frame[data-state="paused"] .watch__icon-play { display: block; }
+
+/* Small print about the footage itself, directly under the picture. */
+.watch__disclaimer {
+  margin-top: 1rem;
+  font-family: var(--ff-mono);
+  font-size: var(--fs-xs);
+  letter-spacing: 0.08em;
+  line-height: 1.7;
+  color: var(--ink-faint);
+  max-width: 68ch;
+}
 
 .watch__fallback {
   margin-top: 1rem;
