@@ -38,6 +38,19 @@
       "form.ok": "Wiadomość przygotowana — dokończ w swoim kliencie poczty.",
       "form.err": "Błąd. Spróbuj ponownie.",
       "footer.rights": "Wszelkie prawa zastrzeżone",
+      "watch.kicker": "WIDEO /",
+      "watch.title": "Posłuchaj nas",
+      "watch.sub": "Kompilacja z próby",
+      "watch.unmute": "Włącz dźwięk",
+      "watch.play": "Odtwórz",
+      "watch.fallback": "Nie udało się odtworzyć wideo w przeglądarce.",
+      "watch.fallback.link": "Otwórz plik wideo",
+      "watch.contact": "Kontakt",
+      "watch.contact.subject": "Zapytanie o koncert — From Nothing",
+      "watch.rider": "Rider techniczny",
+      "watch.rider.status": "w przygotowaniu",
+      "watch.note": "W sprawie koncertów i bookingu — napisz na kontakt@fromnothing.pl. Rider techniczny przesyłamy od ręki.",
+      "a11y.newTab": "(otwiera się w nowej karcie)",
       "role.vox": "Wokal",
       "role.voxGuitar": "Wokal/Gitara",
       "role.guitar": "Gitara",
@@ -81,6 +94,19 @@
       "form.ok": "Message prepared — finish in your mail client.",
       "form.err": "Error. Please try again.",
       "footer.rights": "All rights reserved",
+      "watch.kicker": "VIDEO /",
+      "watch.title": "Listen to us",
+      "watch.sub": "Compilation from rehearsal",
+      "watch.unmute": "Turn on sound",
+      "watch.play": "Play",
+      "watch.fallback": "The video could not be played in your browser.",
+      "watch.fallback.link": "Open the video file",
+      "watch.contact": "Contact",
+      "watch.contact.subject": "Booking enquiry — From Nothing",
+      "watch.rider": "Technical rider",
+      "watch.rider.status": "in preparation",
+      "watch.note": "For shows and booking — write to kontakt@fromnothing.pl. We send the technical rider on request.",
+      "a11y.newTab": "(opens in a new tab)",
       "role.vox": "Vocals",
       "role.voxGuitar": "Vocals/Guitar",
       "role.guitar": "Guitar",
@@ -91,24 +117,55 @@
 
   const STORAGE_KEY = "fn:lang";
   const supported = ["pl", "en"];
-  const LANG_URLS = {
-    pl: "https://fromnothing.pl/",
-    en: "https://fromnothing.pl/?lang=en"
+  const ORIGIN = "https://fromnothing.pl";
+
+  // Which document is being rendered — set via `data-page` on <html>.
+  // Metadata and canonical URLs are per page, not global.
+  const PAGE = document.documentElement.dataset.page || "home";
+  const PAGE_PATHS = {
+    home: "/",
+    posluchajnas: "/posluchajnas"
   };
+
   const META = {
-    pl: {
-      title: "From Nothing — Linkin Park Tribute Band",
-      description: "From Nothing - Linkin Park Tribute Band. Sprawdź gdzie gramy, poznaj skład i skontaktuj się w sprawie koncertów.",
-      socialDescription: "Oficjalna strona polskiego tribute bandu Linkin Park: koncerty, skład i booking.",
-      locale: "pl_PL"
+    home: {
+      pl: {
+        title: "From Nothing — Linkin Park Tribute Band",
+        description: "From Nothing - Linkin Park Tribute Band. Sprawdź gdzie gramy, poznaj skład i skontaktuj się w sprawie koncertów.",
+        socialDescription: "Oficjalna strona polskiego tribute bandu Linkin Park: koncerty, skład i booking.",
+        locale: "pl_PL"
+      },
+      en: {
+        title: "From Nothing — Linkin Park Tribute Band",
+        description: "Official website of From Nothing, a Polish Linkin Park tribute band. See shows, meet the lineup, and get in touch about booking.",
+        socialDescription: "Official website of the Polish Linkin Park tribute band: shows, lineup, and booking.",
+        locale: "en_US"
+      }
     },
-    en: {
-      title: "From Nothing — Linkin Park Tribute Band",
-      description: "Official website of From Nothing, a Polish Linkin Park tribute band. See shows, meet the lineup, and get in touch about booking.",
-      socialDescription: "Official website of the Polish Linkin Park tribute band: shows, lineup, and booking.",
-      locale: "en_US"
+    posluchajnas: {
+      pl: {
+        title: "Posłuchaj nas — From Nothing | Linkin Park Tribute Band",
+        description: "Zobacz i posłuchaj From Nothing — kompilacja nagrań z próby. Linkin Park tribute band. Kontakt w sprawie koncertów i rider techniczny.",
+        socialDescription: "Kompilacja nagrań z próby From Nothing — polskiego tribute bandu Linkin Park.",
+        locale: "pl_PL"
+      },
+      en: {
+        title: "Listen to us — From Nothing | Linkin Park Tribute Band",
+        description: "Watch and listen to From Nothing — a compilation from rehearsal. Linkin Park tribute band. Booking contact and technical rider.",
+        socialDescription: "A compilation recorded at a From Nothing rehearsal — the Polish Linkin Park tribute band.",
+        locale: "en_US"
+      }
     }
   };
+
+  function pageMeta(lang) {
+    return (META[PAGE] || META.home)[lang];
+  }
+
+  function canonicalUrl(lang) {
+    const path = PAGE_PATHS[PAGE] || "/";
+    return `${ORIGIN}${path}${lang === "en" ? "?lang=en" : ""}`;
+  }
 
   function detectLang() {
     const queryLang = new URLSearchParams(window.location.search).get("lang");
@@ -124,12 +181,14 @@
   }
 
   function updateLanguageMetadata(lang) {
-    const meta = META[lang];
+    const meta = pageMeta(lang);
+    const url = canonicalUrl(lang);
     document.title = meta.title;
-    document.querySelector('link[rel="canonical"]')?.setAttribute("href", LANG_URLS[lang]);
+    document.querySelector('link[rel="canonical"]')?.setAttribute("href", url);
     setMetaContent('meta[name="description"]', meta.description);
+    setMetaContent('meta[property="og:title"]', meta.title);
     setMetaContent('meta[property="og:description"]', meta.socialDescription);
-    setMetaContent('meta[property="og:url"]', LANG_URLS[lang]);
+    setMetaContent('meta[property="og:url"]', url);
     setMetaContent('meta[property="og:locale"]', meta.locale);
     setMetaContent('meta[name="twitter:title"]', meta.title);
     setMetaContent('meta[name="twitter:description"]', meta.socialDescription);
@@ -153,6 +212,16 @@
       const key = el.getAttribute("data-i18n-placeholder");
       if (dict[key] !== undefined) el.setAttribute("placeholder", dict[key]);
     });
+    // Booking link: keep the prefilled subject in the active language. The
+    // address itself stays in the markup so there is one source of truth.
+    const contact = document.getElementById("watchContact");
+    const subject = dict["watch.contact.subject"];
+    if (contact && contact.dataset.email && subject) {
+      contact.setAttribute(
+        "href",
+        `mailto:${contact.dataset.email}?subject=${encodeURIComponent(subject)}`
+      );
+    }
     document.querySelectorAll(".lang-btn").forEach((btn) => {
       const active = btn.dataset.lang === lang;
       btn.classList.toggle("is-active", active);
@@ -290,6 +359,90 @@
     update();
   }
 
+  // /posluchajnas — the video starts on its own, but browsers only allow that
+  // while muted, so the prompt over the picture turns the sound on. Falls back
+  // to a plain play prompt whenever autoplay is refused or unwanted.
+  function initWatch() {
+    const video = document.getElementById("watchVideo");
+    if (!video) return;
+
+    const frame = video.closest(".watch__frame");
+    const overlay = document.getElementById("watchOverlay");
+    const label = document.getElementById("watchOverlayLabel");
+    const fallback = document.getElementById("watchFallback");
+    if (!frame || !overlay || !label) return;
+
+    // Track whether the visitor chose a position, so unmuting does not yank
+    // them back to the start of the take.
+    let userSeeked = false;
+    video.addEventListener("seeking", () => {
+      if (!video.ended) userSeeked = true;
+    });
+
+    function showFallback() {
+      overlay.hidden = true;
+      if (fallback) fallback.hidden = false;
+    }
+
+    function prompt(key, state) {
+      frame.dataset.state = state;
+      // Keep data-i18n in step so a language switch relabels the button.
+      label.dataset.i18n = key;
+      const dict = I18N[document.documentElement.lang] || I18N.pl;
+      if (dict[key] !== undefined) label.textContent = dict[key];
+      overlay.hidden = false;
+    }
+
+    function sync() {
+      if (video.error) return showFallback();
+      if (video.paused) return prompt("watch.play", "paused");
+      if (video.muted) return prompt("watch.unmute", "muted");
+      frame.dataset.state = "playing";
+      overlay.hidden = true;
+    }
+
+    overlay.addEventListener("click", () => {
+      if (video.muted) {
+        if (!userSeeked && video.currentTime > 0) video.currentTime = 0;
+        video.muted = false;
+      }
+      const started = video.play();
+      if (started && typeof started.catch === "function") {
+        started.catch(() => sync());
+      }
+      sync();
+    });
+
+    ["play", "pause", "ended", "volumechange"].forEach((evt) =>
+      video.addEventListener(evt, sync)
+    );
+    video.addEventListener("error", showFallback);
+    video.querySelector("source")?.addEventListener("error", showFallback);
+
+    // Do not pull a large file down uninvited on a metered connection, and
+    // treat reduced-motion as a request not to start moving pictures.
+    const connection = navigator.connection || navigator.webkitConnection;
+    const metered =
+      !!connection &&
+      (connection.saveData === true ||
+        /(^|-)2g$/.test(connection.effectiveType || ""));
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+
+    if (metered || reducedMotion) {
+      prompt("watch.play", "paused");
+      return;
+    }
+
+    const attempt = video.play();
+    if (attempt && typeof attempt.then === "function") {
+      attempt.then(sync).catch(() => prompt("watch.play", "paused"));
+    } else {
+      sync();
+    }
+  }
+
   function initNavToggle() {
     const toggle = document.getElementById("navToggle");
     const links = document.getElementById("navLinks");
@@ -322,5 +475,6 @@
     initForm();
     initNavToggle();
     initParallax();
+    initWatch();
   });
 })();

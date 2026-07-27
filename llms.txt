@@ -2,7 +2,7 @@
 
 > Official website of From Nothing, a Polish Linkin Park tribute band.
 
-From Nothing performs the music of Linkin Park live. This website contains the band's concert information, lineup, official social profiles, and booking contact details.
+From Nothing performs the music of Linkin Park live. This website contains the band's concert information, lineup, video, official social profiles, and booking contact details.
 
 ## Language versions
 
@@ -10,6 +10,16 @@ The official website is available in two language variants:
 
 - [Polish version](https://fromnothing.pl/)
 - [English version](https://fromnothing.pl/?lang=en)
+
+## Pages
+
+- [Home](https://fromnothing.pl/) — shows, lineup, and booking form
+- [Listen to us](https://fromnothing.pl/posluchajnas) — video player with a compilation recorded at rehearsal ([English](https://fromnothing.pl/posluchajnas?lang=en))
+
+## Documents
+
+- [Booking offer, 2026/2027](https://fromnothing.pl/oferta) — PDF, Polish
+- [Technical rider](https://fromnothing.pl/rider) — PDF; currently a placeholder, the rider is in preparation and is sent on request
 
 ## Members
 
