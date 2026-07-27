@@ -93,3 +93,23 @@ The published `fromnothing-oferta-26-06-2026.pdf` additionally carries a
 `https://fromnothing.pl/posluchajnas`, applied as a vector overlay on top of the
 Typst output. When the offer is regenerated, that overlay has to be reapplied —
 or, better, the QR code should be moved into the Typst source itself.
+
+## Cache busting after a CSS or JS change
+
+`assets/css/style.css` and `assets/js/app.js` have unversioned filenames, and
+the `fromnothing.pl` zone caches them at the edge for four hours. A deploy alone
+therefore does not reach visitors: `fromnothing.pages.dev` serves the new file
+while `fromnothing.pl` keeps the old one until the cache expires.
+
+Both documents reference these two files with a `?v=` token. **Bump that token in
+`index.html` and `posluchajnas.html` whenever either file changes** — it makes the
+URL new, so neither the edge nor the browser can serve a stale copy.
+
+```bash
+grep -n '?v=' index.html posluchajnas.html
+```
+
+The alternative is a dashboard purge (fromnothing.pl → Caching → Configuration →
+Purge Everything). A `_headers` file with a shorter `Cache-Control` would only
+help if the zone's Browser Cache TTL is set to "Respect Existing Headers";
+otherwise the zone setting wins.
