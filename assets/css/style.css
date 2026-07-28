@@ -1018,6 +1018,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 .field { display: flex; flex-direction: column; gap: 0.45rem; position: relative; z-index: 1; }
 .field--wide { grid-column: 1 / -1; }
+/* Honeypot: display:none is enough on its own (no layout, no tab stop, no
+   AT exposure) — aria-hidden/tabindex on the markup are belt-and-braces. */
+.field--hp { display: none; }
+.form__captcha { grid-column: 1 / -1; }
+.form__captcha .cf-turnstile { width: 100%; }
 .field label {
   font-size: var(--fs-xs);
   letter-spacing: 0.26em;

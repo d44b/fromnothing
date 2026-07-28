@@ -1,0 +1,34 @@
+# Standalone Worker, deployed separately from the Pages project:
+#   wrangler deploy -c functions/_mailer/wrangler.toml
+#
+# Lives under functions/ because that directory is never uploaded as a
+# Pages static asset (and the leading underscore keeps Pages Functions
+# routing from picking it up either) — see README, "Media delivery"
+# section, for the same convention used by _r2.js.
+name = "fromnothing-mailer"
+main = "index.js"
+compatibility_date = "2024-09-23"
+# Reachable only through the Pages service binding — no public workers.dev URL.
+workers_dev = false
+
+[vars]
+RECIPIENTS = "janusz.maciejewski@gmail.com,wojtek.przadka@interia.pl,gawliczek.maria@gmail.com,damiansonek@gmail.com,m.patryk1@gmail.com"
+FROM_ADDR = "kontakt@fromnothing.pl"
+
+# No destination_address / allowed_destination_addresses below — leaving
+# both unset makes the binding unrestricted (any verified destination
+# address on the account), which is what forwarding incoming mail to an
+# arbitrary RECIPIENTS list needs.
+[[send_email]]
+name = "NOTIFY"
+
+# SHARED_SECRET is a Worker secret, not a var — set it at deploy time with:
+#   wrangler secret put SHARED_SECRET -c functions/_mailer/wrangler.toml
+# Never put the actual value in this file. index.js only enforces the
+# `x-mailer-key` header check when this binding is present, so it's safe to
+# deploy before the secret exists (though public workers.dev access should
+# still be locked down promptly — see index.js's fetch() guard).
+#
+# The Pages project needs a matching MAILER_KEY secret (same value) and a
+# service binding `MAILER` -> fromnothing-mailer for functions/api/contact.js
+# to call this worker; both are set on the Pages project, not here.

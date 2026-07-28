@@ -35,8 +35,9 @@
       "form.message": "Wiadomość",
       "form.send": "Wyślij",
       "form.sending": "Wysyłanie…",
-      "form.ok": "Wiadomość przygotowana — dokończ w swoim kliencie poczty.",
+      "form.ok": "Wiadomość wysłana — odezwiemy się wkrótce!",
       "form.err": "Błąd. Spróbuj ponownie.",
+      "form.captchaErr": "Weryfikacja captcha nie powiodła się. Spróbuj ponownie.",
       "footer.rights": "Wszelkie prawa zastrzeżone",
       "watch.title": "Posłuchaj nas — From Nothing",
       "watch.disclaimer": "Nagranie pomocnicze z próby — to nie zapis koncertu. Prezentujemy fragmenty wykonań części setlisty; na próbie ćwiczymy program, a pełny performance pokazujemy na scenie. Nad jakością materiałów promocyjnych pracujemy.",
@@ -88,8 +89,9 @@
       "form.message": "Message",
       "form.send": "Send",
       "form.sending": "Sending…",
-      "form.ok": "Message prepared — finish in your mail client.",
+      "form.ok": "Message sent — we'll get back to you soon!",
       "form.err": "Error. Please try again.",
+      "form.captchaErr": "Captcha verification failed. Please try again.",
       "footer.rights": "All rights reserved",
       "watch.title": "Listen to us — From Nothing",
       "watch.disclaimer": "A working recording from rehearsal — not a concert recording. These are excerpts from part of our setlist; at rehearsal we run through the programme, the full performance happens on stage. We are working on the quality of our promotional material.",
@@ -286,12 +288,52 @@
     if (el) el.textContent = new Date().getFullYear();
   }
 
-  // Contact form: mailto fallback until a real backend is wired up.
-  // The `booking` email is loaded from the #bookingEmail anchor's href if set.
+  // Turnstile: fetched only once the contact section is actually relevant —
+  // it intersects the viewport, or the visitor tabs/clicks into the form
+  // before that (e.g. via a direct #contact link) — rather than on every
+  // page load. The script tag ships with `data-src`, not `src`, so nothing
+  // is fetched until this promotes it; once it executes, Turnstile's
+  // implicit rendering scans the DOM for `.cf-turnstile` and renders the
+  // widget itself, inserting a hidden `cf-turnstile-response` input that
+  // travels with the rest of the form fields.
+  function initTurnstileLazyLoad() {
+    const section = document.getElementById("contact");
+    const script = document.getElementById("turnstileScript");
+    if (!section || !script) return;
+
+    let loaded = false;
+    const load = () => {
+      if (loaded) return;
+      loaded = true;
+      script.src = script.dataset.src;
+    };
+
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            load();
+            io.disconnect();
+          }
+        });
+      },
+      { rootMargin: "200px 0px" }
+    );
+    io.observe(section);
+    // Fallback for a visitor who focuses into the form before the section
+    // is reported as intersecting.
+    section.addEventListener("focusin", load, { once: true });
+  }
+
+  // Contact form: posts JSON straight to the /api/contact Pages Function.
+  // The honeypot (`website`) and Turnstile token (`cf-turnstile-response`)
+  // are both just fields inside the form, so FormData picks them up like
+  // name/email/subject/message — no special-casing needed here.
   function initForm() {
     const form = document.getElementById("contactForm");
     if (!form) return;
     const status = document.getElementById("formStatus");
+    const submitButton = form.querySelector('button[type="submit"]');
 
     form.addEventListener("submit", (e) => {
       e.preventDefault();
@@ -305,26 +347,47 @@
       }
 
       const data = new FormData(form);
-      const bookingAnchor = document.getElementById("bookingEmail");
-      const href = bookingAnchor ? bookingAnchor.getAttribute("href") : "";
-      if (!href || href === "#" || !href.startsWith("mailto:")) {
-        status.textContent = dict["form.err"];
-        status.className = "form__status is-err";
-        return;
-      }
-      const to = href.replace(/^mailto:/, "");
-      const body = `${data.get("message")}\n\n— ${data.get("name")} <${data.get("email")}>`;
-      const subject = data.get("subject") || "Kontakt / Contact — fromnothing.pl";
-      const mailto = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      const payload = {
+        name: data.get("name") || "",
+        email: data.get("email") || "",
+        subject: data.get("subject") || "",
+        message: data.get("message") || "",
+        lang,
+        website: data.get("website") || "",
+        "cf-turnstile-response": data.get("cf-turnstile-response") || "",
+      };
 
       status.textContent = dict["form.sending"];
       status.className = "form__status";
-      window.location.href = mailto;
-      setTimeout(() => {
-        status.textContent = dict["form.ok"];
-        status.className = "form__status is-ok";
-        form.reset();
-      }, 600);
+      if (submitButton) submitButton.disabled = true;
+
+      fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            status.textContent = dict["form.ok"];
+            status.className = "form__status is-ok";
+            form.reset();
+            window.turnstile?.reset();
+          } else if (res.status === 403) {
+            status.textContent = dict["form.captchaErr"];
+            status.className = "form__status is-err";
+            window.turnstile?.reset();
+          } else {
+            status.textContent = dict["form.err"];
+            status.className = "form__status is-err";
+          }
+        })
+        .catch(() => {
+          status.textContent = dict["form.err"];
+          status.className = "form__status is-err";
+        })
+        .finally(() => {
+          if (submitButton) submitButton.disabled = false;
+        });
     });
   }
 
@@ -422,6 +485,7 @@
     initReveal();
     initYear();
     initForm();
+    initTurnstileLazyLoad();
     initNavToggle();
     initParallax();
     initWatch();

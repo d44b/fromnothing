@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="image" href="/assets/img/bg-hero_2026-07-27.webp" type="image/webp" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Teko:wght@300;400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/style.css?v=20260727c" />
+  <link rel="stylesheet" href="/assets/css/style.css?v=20260728a" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -319,6 +319,14 @@
       </aside>
 
       <form class="contact__form" id="contactForm" novalidate>
+        <!-- Honeypot: invisible and unreachable by keyboard/AT. Real visitors
+             never see or fill this; a filled value tells /api/contact the
+             submission is a bot and it fakes a normal success without
+             writing anything. -->
+        <div class="field field--hp" aria-hidden="true">
+          <label for="f-website">Website</label>
+          <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off" />
+        </div>
         <div class="field">
           <label for="f-name" data-i18n="form.name">Imię</label>
           <input id="f-name" name="name" type="text" required autocomplete="name" />
@@ -334,6 +342,9 @@
         <div class="field field--wide">
           <label for="f-message" data-i18n="form.message">Wiadomość</label>
           <textarea id="f-message" name="message" rows="5" required></textarea>
+        </div>
+        <div class="field field--wide form__captcha">
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAD_xD9NQyau6KPFl" data-theme="dark" data-size="flexible"></div>
         </div>
         <div class="field field--wide form__actions">
           <button type="submit" class="btn btn--primary" data-i18n="form.send">Wyślij</button>
@@ -354,6 +365,12 @@
     </div>
   </footer>
 
-  <script src="/assets/js/app.js?v=20260727c" defer></script>
+  <!-- Turnstile is fetched lazily by app.js (contact section intersecting
+       the viewport, or first focus inside the form) instead of on every
+       page load — data-src, not src, so the browser never fetches it until
+       app.js promotes it. Implicit rendering: once it executes it scans the
+       DOM for `.cf-turnstile` and renders the widget itself. -->
+  <script id="turnstileScript" data-src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
+  <script src="/assets/js/app.js?v=20260728a" defer></script>
 </body>
 </html>

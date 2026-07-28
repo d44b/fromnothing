@@ -123,3 +123,61 @@ The alternative is a dashboard purge (fromnothing.pl → Caching → Configurati
 Purge Everything). A `_headers` file with a shorter `Cache-Control` would only
 help if the zone's Browser Cache TTL is set to "Respect Existing Headers";
 otherwise the zone setting wins.
+
+## Lead capture
+
+The contact form (`#contactForm` in `index.html`) posts JSON to `/api/contact`
+(`functions/api/contact.js`) instead of opening a mail client. On a valid
+submission:
+
+1. Cloudflare Turnstile (widget in the form, verified server-side) and a
+   honeypot field (`website`) both have to pass before anything is written.
+2. The lead is inserted into the D1 database **`fromnothing-leads`** — this is
+   the source of truth for every lead, independent of Trello or e-mail.
+3. A card is created on the "Nowy" list of the team's Trello board.
+4. `fromnothing-mailer` (a separate Worker, source in `functions/_mailer/`,
+   *not* deployed as part of the Pages project) sends a notification e-mail
+   about the lead to the team. The same Worker's `email()` handler is the
+   Email Routing destination for `kontakt@fromnothing.pl`, forwarding
+   incoming mail to the same recipients.
+
+A Trello or e-mail failure never blocks the lead write — D1 is authoritative,
+the other two are best-effort notifications on top of it.
+
+### Bindings and secrets (configured on Cloudflare, not in this repo)
+
+The Pages project (`fromnothing`) needs, alongside the existing `MEDIA` R2
+binding:
+
+| Name | Kind | Purpose |
+| --- | --- | --- |
+| `DB` | D1 binding → `fromnothing-leads` | Lead storage |
+| `TURNSTILE_SECRET` | Secret | Server-side Turnstile verification; captcha check is skipped entirely if unset |
+| `TRELLO_KEY`, `TRELLO_TOKEN`, `TRELLO_LIST_ID` | Secrets | Card creation; skipped entirely if any is unset |
+| `MAILER` | Service binding → `fromnothing-mailer` | Lead notification e-mails; skipped entirely if unset |
+| `MAILER_KEY` | Secret | Sent as the `x-mailer-key` header on calls to `MAILER` |
+
+`fromnothing-mailer` itself (deployed separately, see below) needs its own
+`SHARED_SECRET` set to the same value as `MAILER_KEY` above, plus the vars and
+`send_email` binding already declared in `functions/_mailer/wrangler.toml`
+(`RECIPIENTS`, `FROM_ADDR`, binding `NOTIFY`). No secret values live in this
+repository — only binding/secret *names*, matching the `MEDIA` binding
+convention described earlier in this file.
+
+### Deploying the mailer worker
+
+`functions/_mailer/` is never uploaded as a Pages static asset or picked up as
+a Pages Function (the leading underscore excludes it from routing, same as
+`_r2.js`). It is deployed on its own:
+
+```bash
+wrangler deploy -c functions/_mailer/wrangler.toml
+```
+
+### Where lead data lives
+
+Every submitted lead — including ones where Trello or the mailer failed — is a
+row in the `leads` table of the `fromnothing-leads` D1 database (schema in
+`specs/lead-capture/schema.sql`). Trello card id and mail-sent status are
+recorded back onto that same row (`trello_card_id`, `mail_sent`) once those
+best-effort steps succeed.
