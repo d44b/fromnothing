@@ -153,7 +153,7 @@ export default {
   },
 
   // Lead notification, called by contact.js via the MAILER service binding.
-  async fetch(request, env) {
+  async fetch(request, env, ctx) {
     if (request.method !== "POST") {
       return jsonResponse({ ok: false, error: "method_not_allowed" }, 405);
     }
@@ -191,19 +191,28 @@ export default {
     const subject = notificationSubject(lead);
     const bodyPlain = notificationBody(lead);
 
-    let sent = 0;
-    let failed = 0;
-    for (const to of recipients(env)) {
-      try {
-        const raw = buildRawEmail({ from, to, replyTo, subject, bodyText: bodyPlain });
-        await env.NOTIFY.send(new EmailMessage(env.FROM_ADDR, to, raw));
-        sent++;
-      } catch (err) {
-        failed++;
-        console.error("mailer: send failed", to, err);
-      }
-    }
+    // Sending five e-mails takes longer than the caller is willing to wait
+    // (contact.js aborts after 5s, which used to cancel this whole request
+    // mid-send). Respond immediately and let the sends finish in the
+    // background — waitUntil keeps the worker alive after the response.
+    const addresses = recipients(env);
+    ctx.waitUntil(
+      Promise.allSettled(
+        addresses.map(async (to) => {
+          const raw = buildRawEmail({ from, to, replyTo, subject, bodyText: bodyPlain });
+          await env.NOTIFY.send(new EmailMessage(env.FROM_ADDR, to, raw));
+        })
+      ).then((results) => {
+        results.forEach((r, i) => {
+          if (r.status === "rejected") {
+            console.error("mailer: send failed", addresses[i], r.reason);
+          }
+        });
+        const sent = results.filter((r) => r.status === "fulfilled").length;
+        console.log(`mailer: lead #${lead.id ?? "?"} — sent ${sent}/${addresses.length}`);
+      })
+    );
 
-    return jsonResponse({ ok: true, sent, failed }, 200);
+    return jsonResponse({ ok: true, queued: addresses.length }, 200);
   },
 };
