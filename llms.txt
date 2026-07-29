@@ -19,6 +19,7 @@ The official website is available in two language variants:
 ## Documents
 
 - [Booking offer, 2026/2027](https://fromnothing.pl/oferta) — PDF, Polish
+- [Booking offer, 2026/2027](https://fromnothing.pl/offer) — PDF, English
 - [Technical rider](https://fromnothing.pl/rider) — PDF; currently a placeholder, the rider is in preparation and is sent on request
 
 ## Members

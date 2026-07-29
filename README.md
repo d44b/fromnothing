@@ -36,7 +36,8 @@ never redirected off `fromnothing.pl`.
 
 | Route | R2 object key | Notes |
 | --- | --- | --- |
-| `/oferta` | `fromnothing-oferta-27-07-2026.pdf` | Booking offer, served inline |
+| `/oferta` | `fromnothing-oferta-29-07-2026.pdf` | Booking offer (PL), served inline |
+| `/offer` | `fromnothing-booking-offer-29-07-2026.pdf` | Booking offer (EN); its QR points to `/listen` |
 | `/rider` | `fromnothing-rider-tech.pdf` | Technical rider; placeholder for now |
 | `/media/live-2026-kompilacja.mp4` | `fromnothing-live-2026-kompilacja.mp4` | Rehearsal compilation, HTTP Range supported |
 
@@ -87,22 +88,20 @@ through the S3-compatible API with an R2 access key pair.
 
 ## Offer PDF
 
-The offer is generated from a Typst source that is not kept in this repository.
-The published PDF carries two changes applied on top of that Typst output:
+Since the 29-07-2026 edition the offer is a four-page "book" (cover / content /
+gallery / back cover) generated from an HTML source rendered with headless
+Chrome (`--print-to-pdf`). The source — `oferta.html` (PL), `oferta-en.html`
+(EN), images and locally-hosted woff2 fonts — lives outside this repository in
+`~/Downloads/fromnothing-oferta-ksiazka-src/`. The QR codes inside point at
+`/posluchajnas` and `fromnothing.pl` (PL edition) and `/listen` and
+`fromnothing.pl` (EN edition). The earlier two-page edition came from a Typst
+source that was never recovered; the HTML source replaces it 1:1.
 
-- a `POSŁUCHAJ NAS` QR code on page 1 pointing at
-  `https://fromnothing.pl/posluchajnas`, drawn as a vector overlay;
-- the page-1 band photo, replaced in place so the document does not carry both
-  images (`assets/img/bg-hero_<date>.webp` is the same shot, cropped to the
-  page's 1.857 aspect).
-
-**Both are lost when the offer is regenerated from Typst.** Getting the `.typ`
-source and moving the QR code and the photo into it is the durable fix.
-
-Objects are keyed by date (`fromnothing-oferta-DD-MM-YYYY.pdf`) because the key
-is the filename a promoter sees on saving. `functions/oferta.js` holds the key of
-the current edition; earlier editions stay in the bucket and can be removed with
-`wrangler r2 object delete`.
+Objects are keyed by date (`fromnothing-oferta-DD-MM-YYYY.pdf`, EN:
+`fromnothing-booking-offer-DD-MM-YYYY.pdf`) because the key is the filename a
+promoter sees on saving. `functions/oferta.js` and `functions/offer.js` hold the
+keys of the current editions; earlier editions stay in the bucket and can be
+removed with `wrangler r2 object delete`.
 
 ## Cache busting after a CSS or JS change
 
