@@ -40,7 +40,7 @@
       "form.captchaErr": "Weryfikacja captcha nie powiodła się. Spróbuj ponownie.",
       "footer.rights": "Wszelkie prawa zastrzeżone",
       "watch.title": "Posłuchaj nas — From Nothing",
-      "watch.disclaimer": "Nagranie pomocnicze z próby — to nie zapis koncertu. Prezentujemy fragmenty wykonań części setlisty; na próbie ćwiczymy program, a pełny performance pokazujemy na scenie. Nad jakością materiałów promocyjnych pracujemy.",
+      "watch.disclaimer": "Materiał live z próby zespołu. Prezentujemy fragmenty wykonań części setlisty; na próbie ćwiczymy program, a pełny performance pokazujemy na scenie. Kolejne nagrania sceniczne już wkrótce.",
       "watch.play": "Odtwórz wideo",
       "watch.fallback": "Nie udało się odtworzyć wideo w przeglądarce.",
       "watch.fallback.link": "Otwórz plik wideo",
