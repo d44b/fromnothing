@@ -9,6 +9,13 @@
 import { serveObject } from "../_r2.js";
 
 const PUBLIC = {
+  // Current compilation (the "alt" cut, re-encoded to 5.7 Mb/s for delivery).
+  // Dated name: the old key stays reachable below because the 7-day edge cache
+  // and links in the wild may still point at it.
+  "live-2026-kompilacja-2026-07-30.mp4": {
+    key: "fromnothing-live-2026-kompilacja-2026-07-30.mp4",
+    contentType: "video/mp4",
+  },
   "live-2026-kompilacja.mp4": {
     key: "fromnothing-live-2026-kompilacja.mp4",
     contentType: "video/mp4",
