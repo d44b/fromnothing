@@ -1,9 +1,10 @@
-// GET /rider — the technical rider. Currently a placeholder document marked
-// "w przygotowaniu"; swapping the object in R2 publishes the real rider with
-// no code change and no deploy.
+// GET /rider — the technical rider (PL). English edition lives at /rider-en.
+// Replacing the object in the bucket publishes a new edition without a deploy.
 import { serveObject } from "./_r2.js";
 
-const KEY = "fromnothing-rider-tech.pdf";
+// Dated key: the name is what a promoter sees when they save the file, so it
+// changes whenever the document does. Previous editions stay in the bucket.
+const KEY = "fromnothing-rider-30-07-2026.pdf";
 
 export function onRequest({ request, env }) {
   return serveObject({

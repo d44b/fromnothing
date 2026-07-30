@@ -38,7 +38,8 @@ never redirected off `fromnothing.pl`.
 | --- | --- | --- |
 | `/oferta` | `fromnothing-oferta-29-07-2026.pdf` | Booking offer (PL), served inline |
 | `/offer` | `fromnothing-booking-offer-29-07-2026.pdf` | Booking offer (EN); its QR points to `/listen` |
-| `/rider` | `fromnothing-rider-tech.pdf` | Technical rider; placeholder for now |
+| `/rider` | `fromnothing-rider-30-07-2026.pdf` | Technical rider (PL) |
+| `/rider-en` | `fromnothing-tech-rider-30-07-2026.pdf` | Technical rider (EN) |
 | `/media/live-2026-kompilacja.mp4` | `fromnothing-live-2026-kompilacja.mp4` | Rehearsal compilation, HTTP Range supported |
 
 `functions/_r2.js` holds the shared delivery logic (conditional requests, range
