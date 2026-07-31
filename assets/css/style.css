@@ -76,7 +76,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   inset: 0;
   z-index: 99;
   pointer-events: none;
-  opacity: 0.04;
+  opacity: 0.05;
   background: repeating-linear-gradient(
     to bottom,
     transparent 0px,
@@ -84,7 +84,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     #ffffff 2px,
     #ffffff 3px
   );
-  mix-blend-mode: lighten;
 }
 
 /* ---------- NAV ---------- */
@@ -97,9 +96,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   align-items: center;
   gap: 2rem;
   padding: 1rem var(--pad-x);
-  background: rgba(10, 9, 8, 0.72);
-  backdrop-filter: blur(14px) saturate(140%);
-  -webkit-backdrop-filter: blur(14px) saturate(140%);
+  background: rgba(10, 9, 8, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--line);
   font-family: var(--ff-mono);
   font-size: var(--fs-xs);
