@@ -30,9 +30,8 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/assets/img/favicon-180.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="preload" as="image" href="/assets/img/poster-live-2026.webp" type="image/webp" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Teko:wght@300;400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/style.css?v=20260801c" />
+  <link rel="stylesheet" href="/assets/css/style.css?v=20260801d" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -67,7 +66,8 @@
         "thumbnailUrl": ["https://fromnothing.pl/assets/img/poster-live-2026.jpg"],
         "uploadDate": "2026-07-30",
         "duration": "PT6M44S",
-        "contentUrl": "https://fromnothing.pl/media/live-2026-kompilacja-2026-07-30.mp4",
+        "url": "https://youtu.be/VshzxWnqjss",
+        "embedUrl": "https://www.youtube-nocookie.com/embed/VshzxWnqjss",
         "publisher": { "@id": "https://fromnothing.pl/#band" },
         "about": { "@id": "https://fromnothing.pl/#band" }
       },
@@ -133,41 +133,20 @@
 
       <div class="watch__stage">
         <div class="watch__frame">
-          <video
-            class="watch__video"
-            id="watchVideo"
-            poster="/assets/img/poster-live-2026.webp"
-            width="1600" height="900"
-            controls playsinline preload="metadata"
-          >
-            <source src="/media/live-2026-kompilacja-2026-07-30.mp4" type="video/mp4" />
-          </video>
-
-          <button type="button" class="watch__play" id="watchPlay">
-            <img
-              src="/assets/img/logo-full-white.webp"
-              alt=""
-              class="watch__play-logo"
-              width="832" height="404"
-              fetchpriority="high"
-            />
-            <span class="watch__play-btn" aria-hidden="true">
-              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7L8 5z"/></svg>
-            </span>
-            <span class="visually-hidden" data-i18n="watch.play">Odtwórz wideo</span>
-          </button>
-          <!-- Without scripting the start screen cannot play the video, so it
-               steps aside and the native controls take over. -->
-          <noscript><style>.watch__play { display: none; }</style></noscript>
+          <iframe
+            class="watch__embed"
+            src="https://www.youtube-nocookie.com/embed/VshzxWnqjss"
+            title="From Nothing — YouTube"
+            width="1600"
+            height="900"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
         </div>
 
         <p class="watch__disclaimer" data-i18n="watch.disclaimer">
           Materiał live z próby zespołu. Prezentujemy fragmenty wykonań części setlisty; na próbie ćwiczymy program, a pełny performance pokazujemy na scenie. Kolejne nagrania sceniczne już wkrótce.
-        </p>
-
-        <p class="watch__fallback" id="watchFallback" hidden>
-          <span data-i18n="watch.fallback">Nie udało się odtworzyć wideo w przeglądarce.</span>
-          <a href="/media/live-2026-kompilacja-2026-07-30.mp4" data-i18n="watch.fallback.link">Otwórz plik wideo</a>
         </p>
 
         <div class="watch__actions">
@@ -205,6 +184,6 @@
     </div>
   </footer>
 
-  <script src="/assets/js/app.js?v=20260801a" defer></script>
+  <script src="/assets/js/app.js?v=20260801b" defer></script>
 </body>
 </html>

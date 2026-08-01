@@ -41,9 +41,6 @@
       "footer.rights": "Wszelkie prawa zastrzeżone",
       "watch.title": "Posłuchaj nas — From Nothing",
       "watch.disclaimer": "Materiał live z próby zespołu. Prezentujemy fragmenty wykonań części setlisty; na próbie ćwiczymy program, a pełny performance pokazujemy na scenie. Kolejne nagrania sceniczne już wkrótce.",
-      "watch.play": "Odtwórz wideo",
-      "watch.fallback": "Nie udało się odtworzyć wideo w przeglądarce.",
-      "watch.fallback.link": "Otwórz plik wideo",
       "watch.contact": "Kontakt",
       "watch.contact.subject": "Zapytanie o koncert — From Nothing",
       "watch.rider": "Rider techniczny",
@@ -94,9 +91,6 @@
       "footer.rights": "All rights reserved",
       "watch.title": "Listen to us — From Nothing",
       "watch.disclaimer": "A working recording from rehearsal — not a concert recording. These are excerpts from part of our setlist; at rehearsal we run through the programme, the full performance happens on stage. We are working on the quality of our promotional material.",
-      "watch.play": "Play video",
-      "watch.fallback": "The video could not be played in your browser.",
-      "watch.fallback.link": "Open the video file",
       "watch.contact": "Contact",
       "watch.contact.subject": "Booking enquiry — From Nothing",
       "watch.rider": "Technical rider",
@@ -414,45 +408,6 @@
     update();
   }
 
-  // /posluchajnas — a start screen over the poster instead of autoplay.
-  // Nothing of the 386 MB file is fetched until the visitor asks for it, and
-  // because the click is a user gesture the video may begin with sound.
-  function initWatch() {
-    const video = document.getElementById("watchVideo");
-    const start = document.getElementById("watchPlay");
-    if (!video || !start) return;
-    const fallback = document.getElementById("watchFallback");
-
-    function showFallback() {
-      start.hidden = true;
-      video.setAttribute("controls", "");
-      if (fallback) fallback.hidden = false;
-    }
-
-    // Mobile browsers draw their own start button over the poster, which would
-    // show through the start screen as a second play control. The native
-    // controls are handed back the moment playback begins. The attribute stays
-    // in the markup so that without scripting they are there from the start.
-    video.removeAttribute("controls");
-
-    start.addEventListener("click", () => {
-      start.hidden = true;
-      video.setAttribute("controls", "");
-      const played = video.play();
-      if (played && typeof played.catch === "function") {
-        // Playback refused — put the start screen back rather than leaving
-        // the visitor with a still frame and no explanation.
-        played.catch(() => {
-          video.removeAttribute("controls");
-          start.hidden = false;
-        });
-      }
-    });
-
-    video.addEventListener("error", showFallback);
-    video.querySelector("source")?.addEventListener("error", showFallback);
-  }
-
   function initNavToggle() {
     const toggle = document.getElementById("navToggle");
     const links = document.getElementById("navLinks");
@@ -486,6 +441,5 @@
     initTurnstileLazyLoad();
     initNavToggle();
     initParallax();
-    initWatch();
   });
 })();
