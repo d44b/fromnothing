@@ -740,6 +740,16 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   border-color: var(--accent);
   color: var(--ink);
 }
+.tour__ticket--status {
+  display: inline-flex;
+  white-space: normal;
+  line-height: 1.4;
+}
+.tour__ticket--status:hover {
+  background: transparent;
+  border-color: var(--line-strong);
+  color: inherit;
+}
 
 /* played / past show */
 .tour__row--past .tour__day,
