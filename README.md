@@ -181,3 +181,33 @@ row in the `leads` table of the `fromnothing-leads` D1 database (schema in
 `specs/lead-capture/schema.sql`). Trello card id and mail-sent status are
 recorded back onto that same row (`trello_card_id`, `mail_sent`) once those
 best-effort steps succeed.
+
+## Availability calendar
+
+Two unlisted pages backed by the `calendar_entries` table in the same
+`fromnothing-leads` D1 database:
+
+- **`/kalendarz`** (`functions/kalendarz.js`) — internal band tool behind a
+  shared password. Band members mark absences (a date range, "na pewno out" or
+  "wstępnie"; a tentative absence carries an explicit "does it block a
+  concert?" flag — non-blocking tentative plans lose to concerts) and add
+  concert dates. Login issues a 90-day HMAC-signed `fn_cal` cookie; all
+  `/api/calendar/entries` traffic requires it.
+- **`/terminy`** (`terminy.html`) — public, read-only, `noindex`, deliberately
+  unlinked and absent from `sitemap.xml`. Renders the next 12 months and marks
+  free Fridays as "TYLKO ŚLĄSK" (striped) and free Saturdays/Sundays as
+  "WOLNE", computed by `GET /api/calendar/availability`, which exposes nothing
+  beyond the free days themselves. Bilingual PL/EN (`?lang=en`); the English
+  version hides Fridays entirely.
+
+Every entry write is mirrored best-effort (in `waitUntil`, never blocking the
+response) to the band's Google Calendar through a service account
+(`functions/_calendar/google.js`, RS256 JWT via WebCrypto, no dependencies).
+`POST /api/calendar/resync` (auth) backfills entries that missed their sync.
+
+Additional Pages secrets (names only, same convention as above):
+`CALENDAR_PASSWORD`, `CALENDAR_SESSION_SECRET`, `GOOGLE_SA_EMAIL`,
+`GOOGLE_SA_KEY_PEM_B64` (base64 of the service account's PKCS8 PEM),
+`GOOGLE_CALENDAR_ID`. The Google Cloud side is project `fromnothing`
+(service account `calendar-sync`, Calendar API enabled) with the target
+calendar shared to the service account ("make changes to events").
