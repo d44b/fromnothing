@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="robots" content="noindex, nofollow" />
+<title>From Nothing — Terminy / Availability</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --cream: #f2ede0;
+    --cream-cell: #e3ddd0;
+    --ink: #211d18;
+    --ink-dim: #6b6459;
+    --accent: #c8322c;
+    --accent-ink: #f5f1e8;
+    --line: rgba(33, 29, 24, 0.16);
+    --ff-display: "Anton", "Arial Narrow", sans-serif;
+    --ff-mono: "Space Mono", ui-monospace, "SF Mono", monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { background: var(--cream); color: var(--ink); }
+  body {
+    font-family: var(--ff-mono);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  a, button { color: inherit; font: inherit; }
+
+  .topbar {
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar__inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem clamp(1rem, 4vw, 2.5rem);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .brand {
+    font-family: var(--ff-display);
+    letter-spacing: 0.04em;
+    font-size: 1.1rem;
+  }
+  .lang-switch {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+  }
+  .lang-switch [aria-hidden] { opacity: 0.4; }
+  .lang-btn {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    padding: 0.25rem 0.35rem;
+    letter-spacing: 0.06em;
+    opacity: 0.55;
+  }
+  .lang-btn.is-active { opacity: 1; color: var(--accent); font-weight: 700; }
+  .lang-btn:focus-visible,
+  .lang-btn:focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: clamp(1.5rem, 5vw, 3rem) clamp(1rem, 4vw, 2.5rem) clamp(3rem, 8vw, 5rem);
+  }
+
+  h1 {
+    font-family: var(--ff-display);
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    font-size: clamp(2rem, 5vw, 3.25rem);
+    line-height: 1.02;
+  }
+  .lead {
+    margin-top: 0.75rem;
+    max-width: 46em;
+    color: var(--ink-dim);
+    font-size: 0.9rem;
+  }
+
+  .legend {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.75rem;
+    margin-top: 1.75rem;
+  }
+  .legend__item[hidden] { display: none; }
+  .legend__item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .swatch {
+    width: 1.15rem;
+    height: 1.15rem;
+    flex: none;
+    display: inline-block;
+    border: 1px solid var(--accent);
+  }
+  .swatch--wolne { background: var(--accent); }
+  .swatch--slask {
+    background: repeating-linear-gradient(
+      45deg,
+      var(--cream),
+      var(--cream) 3px,
+      var(--accent) 3px,
+      var(--accent) 5px
+    );
+  }
+
+  .rule {
+    margin-top: 1.5rem;
+    border: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .status {
+    margin-top: 2rem;
+    font-size: 0.85rem;
+    color: var(--ink-dim);
+  }
+  .status[hidden] { display: none; }
+
+  .grid {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+  }
+  @media (max-width: 980px) {
+    .grid { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 620px) {
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  .month__head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+  .month__name {
+    font-family: var(--ff-display);
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: clamp(1.5rem, 3.4vw, 2.15rem);
+    line-height: 1;
+  }
+  .month__year {
+    font-size: 0.85rem;
+    color: var(--ink-dim);
+    letter-spacing: 0.04em;
+  }
+  .month__rule {
+    margin: 0.6rem 0 0.75rem;
+    border: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .weekdays,
+  .days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.3rem;
+  }
+  .weekdays {
+    margin-bottom: 0.3rem;
+  }
+  .weekdays__cell {
+    text-align: center;
+    font-size: 0.68rem;
+    letter-spacing: 0.05em;
+    color: var(--ink-dim);
+  }
+
+  .day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.78rem;
+    background: var(--cream-cell);
+    color: var(--ink-dim);
+  }
+  .day--pad {
+    background: transparent;
+    visibility: hidden;
+  }
+  .day--wolne {
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 700;
+  }
+  .day--slask {
+    background: repeating-linear-gradient(
+      45deg,
+      var(--cream),
+      var(--cream) 3px,
+      var(--accent) 3px,
+      var(--accent) 5px
+    );
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar__inner">
+      <span class="brand">FROM NOTHING</span>
+      <div class="lang-switch" role="group" aria-label="Language / Język">
+        <button type="button" class="lang-btn" id="langPl" data-lang="pl" aria-pressed="true">PL</button>
+        <span aria-hidden="true">|</span>
+        <button type="button" class="lang-btn" id="langEn" data-lang="en" aria-pressed="false">EN</button>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <h1 id="heading"></h1>
+    <p id="lead" class="lead"></p>
+
+    <ul class="legend" id="legend">
+      <li class="legend__item">
+        <span class="swatch swatch--wolne" aria-hidden="true"></span>
+        <span id="legendWolneText"></span>
+      </li>
+      <li class="legend__item" id="legendSlaskItem">
+        <span class="swatch swatch--slask" aria-hidden="true"></span>
+        <span id="legendSlaskText"></span>
+      </li>
+    </ul>
+    <hr class="rule" />
+
+    <p id="status" class="status" role="status" aria-live="polite" hidden></p>
+    <div id="grid" class="grid" aria-busy="true"></div>
+  </main>
+
+<script>
+(() => {
+  "use strict";
+
+  const STORAGE_KEY = "fn:lang";
+  const API_URL = "/api/calendar/availability";
+
+  /* i18n-dict */
+  const I18N = {
+    pl: {
+      heading: "WOLNE TERMINY",
+      lead: "Aktualne wolne terminy koncertowe zespołu From Nothing.",
+      loading: "Wczytywanie terminów…",
+      error: "Nie udało się wczytać terminów. Spróbuj ponownie później.",
+      legendWolne: "WOLNE",
+      legendSlask: "TYLKO ŚLĄSK"
+    },
+    en: {
+      heading: "AVAILABLE DATES",
+      lead: "Current available concert dates for From Nothing.",
+      loading: "Loading dates…",
+      error: "Could not load dates. Please try again later.",
+      legendWolne: "AVAILABLE"
+    }
+  };
+
+  const MONTH_NAMES = {
+    pl: ["STYCZEŃ", "LUTY", "MARZEC", "KWIECIEŃ", "MAJ", "CZERWIEC", "LIPIEC", "SIERPIEŃ", "WRZESIEŃ", "PAŹDZIERNIK", "LISTOPAD", "GRUDZIEŃ"],
+    en: ["JANUARY", "FEBRUARY", "MARCH", "APRIL", "MAY", "JUNE", "JULY", "AUGUST", "SEPTEMBER", "OCTOBER", "NOVEMBER", "DECEMBER"]
+  };
+  // Genitive form, used only inside natural-language aria-labels/titles.
+  const MONTH_NAMES_GENITIVE_PL = [
+    "stycznia", "lutego", "marca", "kwietnia", "maja", "czerwca",
+    "lipca", "sierpnia", "września", "października", "listopada", "grudnia"
+  ];
+
+  const WEEKDAY_LABELS = {
+    pl: ["P", "W", "Ś", "C", "P", "S", "N"],
+    en: ["M", "T", "W", "T", "F", "S", "S"]
+  };
+
+  const ARIA_STATUS = {
+    pl: { wolne: "wolne", slask: "tylko Śląsk" },
+    en: { wolne: "available" }
+  };
+
+  let currentLang = "pl";
+  let apiData = null; // { from, to, days: [{date, kind}] }
+  let apiError = false;
+
+  // ---------- DOM refs ----------
+  const headingEl = document.getElementById("heading");
+  const leadEl = document.getElementById("lead");
+  const legendWolneText = document.getElementById("legendWolneText");
+  const legendSlaskItem = document.getElementById("legendSlaskItem");
+  const legendSlaskText = document.getElementById("legendSlaskText");
+  const statusEl = document.getElementById("status");
+  const gridEl = document.getElementById("grid");
+  const langPlBtn = document.getElementById("langPl");
+  const langEnBtn = document.getElementById("langEn");
+
+  // ---------- date helpers (plain integers, no timezone pitfalls) ----------
+  function pad2(n) { return String(n).padStart(2, "0"); }
+  function ymd(y, m, d) { return `${y}-${pad2(m + 1)}-${pad2(d)}`; }
+  function parseYMD(s) {
+    const [y, m, d] = s.split("-").map(Number);
+    return { y, m: m - 1, d };
+  }
+  function daysInMonth(y, m) { return new Date(y, m + 1, 0).getDate(); }
+  // Monday-first weekday index (0=Mon … 6=Sun) for the 1st of the month.
+  function firstWeekdayMon(y, m) { return (new Date(y, m, 1).getDay() + 6) % 7; }
+
+  function buildMonths(fromStr) {
+    const { y, m } = parseYMD(fromStr);
+    const months = [];
+    for (let i = 0; i < 12; i++) {
+      const total = m + i;
+      const year = y + Math.floor(total / 12);
+      const month = ((total % 12) + 12) % 12;
+      months.push({ year, month });
+    }
+    return months;
+  }
+
+  function formatFullDate(lang, y, m, d) {
+    if (lang === "en") {
+      return `${MONTH_NAMES.en[m][0]}${MONTH_NAMES.en[m].slice(1).toLowerCase()} ${d}, ${y}`;
+    }
+    return `${d} ${MONTH_NAMES_GENITIVE_PL[m]} ${y}`;
+  }
+
+  // ---------- rendering ----------
+  function buildDayMap(lang) {
+    const map = new Map();
+    if (!apiData) return map;
+    const days = apiData.days || [];
+    /* EN: hide slask days */
+    const visible = days.filter((d) => (lang === "en" ? d.kind === "wolne" : true));
+    visible.forEach((d) => map.set(d.date, d.kind));
+    return map;
+  }
+
+  function renderGrid() {
+    gridEl.textContent = "";
+    if (!apiData) return;
+
+    const lang = currentLang;
+    const dayMap = buildDayMap(lang);
+    const months = buildMonths(apiData.from);
+
+    months.forEach(({ year, month }) => {
+      const panel = document.createElement("section");
+      panel.className = "month";
+
+      const head = document.createElement("div");
+      head.className = "month__head";
+
+      const h2 = document.createElement("h2");
+      h2.className = "month__name";
+      h2.textContent = MONTH_NAMES[lang][month];
+
+      const yearEl = document.createElement("span");
+      yearEl.className = "month__year";
+      yearEl.textContent = String(year);
+
+      head.appendChild(h2);
+      head.appendChild(yearEl);
+      panel.appendChild(head);
+
+      const rule = document.createElement("hr");
+      rule.className = "month__rule";
+      panel.appendChild(rule);
+
+      const weekdaysRow = document.createElement("div");
+      weekdaysRow.className = "weekdays";
+      weekdaysRow.setAttribute("aria-hidden", "true");
+      WEEKDAY_LABELS[lang].forEach((label) => {
+        const cell = document.createElement("div");
+        cell.className = "weekdays__cell";
+        cell.textContent = label;
+        weekdaysRow.appendChild(cell);
+      });
+      panel.appendChild(weekdaysRow);
+
+      const daysGrid = document.createElement("div");
+      daysGrid.className = "days";
+
+      const leadingPad = firstWeekdayMon(year, month);
+      for (let i = 0; i < leadingPad; i++) {
+        const pad = document.createElement("div");
+        pad.className = "day day--pad";
+        pad.setAttribute("aria-hidden", "true");
+        daysGrid.appendChild(pad);
+      }
+
+      const total = daysInMonth(year, month);
+      for (let d = 1; d <= total; d++) {
+        const dateStr = ymd(year, month, d);
+        const kind = dayMap.get(dateStr);
+        const cell = document.createElement("div");
+        cell.textContent = String(d);
+
+        if (kind === "wolne" || kind === "slask") {
+          cell.className = `day day--${kind}`;
+          const statusText = ARIA_STATUS[lang][kind];
+          const fullDate = formatFullDate(lang, year, month, d);
+          const label = `${fullDate} — ${statusText}`;
+          cell.setAttribute("aria-label", label);
+          cell.title = label;
+        } else {
+          cell.className = "day";
+        }
+        daysGrid.appendChild(cell);
+      }
+
+      // Trailing pad so every month keeps a full 7-column final row.
+      const trailing = (7 - ((leadingPad + total) % 7)) % 7;
+      for (let i = 0; i < trailing; i++) {
+        const pad = document.createElement("div");
+        pad.className = "day day--pad";
+        pad.setAttribute("aria-hidden", "true");
+        daysGrid.appendChild(pad);
+      }
+
+      panel.appendChild(daysGrid);
+      gridEl.appendChild(panel);
+    });
+
+    gridEl.setAttribute("aria-busy", "false");
+  }
+
+  function applyLang(lang) {
+    currentLang = lang;
+    const dict = I18N[lang];
+    document.documentElement.lang = lang;
+
+    headingEl.textContent = dict.heading;
+    leadEl.textContent = dict.lead;
+    legendWolneText.textContent = dict.legendWolne;
+
+    if (lang === "en") {
+      legendSlaskItem.hidden = true;
+    } else {
+      legendSlaskItem.hidden = false;
+      legendSlaskText.textContent = dict.legendSlask;
+    }
+
+    langPlBtn.classList.toggle("is-active", lang === "pl");
+    langEnBtn.classList.toggle("is-active", lang === "en");
+    langPlBtn.setAttribute("aria-pressed", String(lang === "pl"));
+    langEnBtn.setAttribute("aria-pressed", String(lang === "en"));
+
+    if (apiError) {
+      statusEl.hidden = false;
+      statusEl.textContent = dict.error;
+    } else if (!apiData) {
+      statusEl.hidden = false;
+      statusEl.textContent = dict.loading;
+    } else {
+      statusEl.hidden = true;
+      statusEl.textContent = "";
+    }
+
+    renderGrid();
+  }
+
+  // ---------- i18n url/storage plumbing (mirrors assets/js/app.js) ----------
+  function langUrl(lang) {
+    const url = new URL(window.location.href);
+    if (lang === "en") url.searchParams.set("lang", "en");
+    else url.searchParams.delete("lang");
+    return `${url.pathname}${url.search}${url.hash}`;
+  }
+
+  function initLang() {
+    const queryLang = new URLSearchParams(window.location.search).get("lang");
+    if (queryLang === "en") return "en";
+    if (queryLang === "pl") return "pl";
+
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved === "en") {
+      // Page is standalone (no SSR route), so we sync the URL in place
+      // rather than redirecting, per spec: history.replaceState only.
+      history.replaceState(null, "", langUrl("en"));
+      return "en";
+    }
+    return "pl";
+  }
+
+  function setLang(lang) {
+    if (lang === currentLang) return;
+    localStorage.setItem(STORAGE_KEY, lang);
+    history.pushState({ lang }, "", langUrl(lang));
+    applyLang(lang);
+  }
+
+  langPlBtn.addEventListener("click", () => setLang("pl"));
+  langEnBtn.addEventListener("click", () => setLang("en"));
+
+  window.addEventListener("popstate", () => {
+    const queryLang = new URLSearchParams(window.location.search).get("lang");
+    applyLang(queryLang === "en" ? "en" : "pl");
+  });
+
+  // ---------- boot ----------
+  async function loadData() {
+    try {
+      const res = await fetch(API_URL);
+      if (!res.ok) throw new Error(`bad status ${res.status}`);
+      const data = await res.json();
+      apiData = data;
+      apiError = false;
+    } catch (err) {
+      apiError = true;
+    }
+    applyLang(currentLang);
+  }
+
+  currentLang = initLang();
+  localStorage.setItem(STORAGE_KEY, currentLang);
+  applyLang(currentLang);
+  loadData();
+})();
+</script>
+</body>
+</html>
