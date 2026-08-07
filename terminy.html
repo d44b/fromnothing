@@ -15,7 +15,8 @@
     --ink: #211d18;
     --ink-dim: #6b6459;
     --accent: #c8322c;
-    --accent-ink: #f5f1e8;
+    --available: #23733b;
+    --available-ink: #f5f1e8;
     --line: rgba(33, 29, 24, 0.16);
     --ff-display: "Anton", "Arial Narrow", sans-serif;
     --ff-mono: "Space Mono", ui-monospace, "SF Mono", monospace;
@@ -110,16 +111,16 @@
     height: 1.15rem;
     flex: none;
     display: inline-block;
-    border: 1px solid var(--accent);
+    border: 1px solid var(--available);
   }
-  .swatch--wolne { background: var(--accent); }
+  .swatch--wolne { background: var(--available); }
   .swatch--slask {
     background: repeating-linear-gradient(
       45deg,
       var(--cream),
       var(--cream) 3px,
-      var(--accent) 3px,
-      var(--accent) 5px
+      var(--available) 3px,
+      var(--available) 5px
     );
   }
 
@@ -203,8 +204,8 @@
     visibility: hidden;
   }
   .day--wolne {
-    background: var(--accent);
-    color: var(--accent-ink);
+    background: var(--available);
+    color: var(--available-ink);
     font-weight: 700;
   }
   .day--slask {
@@ -212,11 +213,11 @@
       45deg,
       var(--cream),
       var(--cream) 3px,
-      var(--accent) 3px,
-      var(--accent) 5px
+      var(--available) 3px,
+      var(--available) 5px
     );
-    border: 1px solid var(--accent);
-    color: var(--accent);
+    border: 1px solid var(--available);
+    color: var(--available);
     font-weight: 700;
   }
 
