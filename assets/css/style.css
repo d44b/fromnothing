@@ -720,6 +720,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .tour__event-link:hover { gap: 0.6rem; }
 .tour__event-arrow {
   display: inline-block;
+  color: var(--ink);
   transition: transform 0.2s var(--ease-out);
 }
 .tour__event-link:hover .tour__event-arrow {

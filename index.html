@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="image" href="/assets/img/bg-hero-2.webp" type="image/webp" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Teko:wght@300;400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/style.css?v=20260801c" />
+  <link rel="stylesheet" href="/assets/css/style.css?v=20260807a" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -79,7 +79,10 @@
           "https://www.facebook.com/FromNothingPoland/",
           "https://www.youtube.com/@FromNothingPoland"
         ],
-        "event": { "@id": "https://fromnothing.pl/#event-2027-02-05-pszczynskie-centrum-kultury" },
+        "event": [
+          { "@id": "https://fromnothing.pl/#event-2027-02-05-pszczynskie-centrum-kultury" },
+          { "@id": "https://fromnothing.pl/#event-2027-03-14-lola-montez-gliwice" }
+        ],
         "member": [
           { "@type": "Person", "name": "Mery", "description": "Vocals" },
           { "@type": "Person", "name": "Janusz", "description": "Vocals and guitar" },
@@ -102,6 +105,25 @@
             "streetAddress": "Władysława Jagiełły 1",
             "postalCode": "43-200",
             "addressLocality": "Pszczyna"
+          }
+        },
+        "performer": { "@id": "https://fromnothing.pl/#band" }
+      },
+      {
+        "@type": "MusicEvent",
+        "@id": "https://fromnothing.pl/#event-2027-03-14-lola-montez-gliwice",
+        "name": "From Nothing — Lola Montez Live Music & Sport Pub",
+        "startDate": "2027-03-14",
+        "location": {
+          "@type": "Place",
+          "name": "Lola Montez Live Music & Sport Pub",
+          "url": "https://www.facebook.com/p/Lola-Montez-Live-Music-Sport-Pub-61585042743978/",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Średnia 10",
+            "postalCode": "44-100",
+            "addressLocality": "Gliwice",
+            "addressCountry": "PL"
           }
         },
         "performer": { "@id": "https://fromnothing.pl/#band" }
@@ -214,14 +236,32 @@
           </time>
           <div class="tour__city">Pszczyna</div>
           <div class="tour__venue">
-            <span class="tour__venue-addr">ul. Władysława Jagiełły 1</span>
+            <span class="tour__venue-addr">ul. Władysława Jagiełły 1, Pszczyna</span>
             <a href="https://pckul.pl/" target="_blank" rel="noopener" class="tour__event-link">
               <span>Pszczyńskie Centrum Kultury</span>
               <span class="tour__event-arrow" aria-hidden="true">↗</span>
             </a>
           </div>
           <div class="tour__action">
-            <span class="tour__ticket tour__ticket--status" data-i18n="tour.ticketsSoon">Bilety: wkrótce więcej informacji</span>
+            <span class="tour__ticket tour__ticket--status" data-i18n="tour.ticketsSoon">Bilety: informacje wkrótce</span>
+          </div>
+        </li>
+        <li class="tour__row">
+          <time class="tour__date" datetime="2027-03-14">
+            <span class="tour__day">14</span>
+            <span class="tour__month" data-i18n="months.03">MAR</span>
+            <span class="tour__year">2027</span>
+          </time>
+          <div class="tour__city">Gliwice</div>
+          <div class="tour__venue">
+            <span class="tour__venue-addr">ul. Średnia 10, Gliwice</span>
+            <a href="https://www.facebook.com/p/Lola-Montez-Live-Music-Sport-Pub-61585042743978/" target="_blank" rel="noopener" class="tour__event-link">
+              <span>Lola Montez Live Music &amp; Sport Pub</span>
+              <span class="tour__event-arrow" aria-hidden="true">↗</span>
+            </a>
+          </div>
+          <div class="tour__action">
+            <span class="tour__ticket tour__ticket--status" data-i18n="tour.ticketsSoon">Bilety: informacje wkrótce</span>
           </div>
         </li>
       </ol>
@@ -238,7 +278,7 @@
           </time>
           <div class="tour__city">TYCHY / Stadion Miejski</div>
           <div class="tour__venue">
-            <span class="tour__venue-addr">ul. Edukacji 7</span>
+            <span class="tour__venue-addr">ul. Edukacji 7, Tychy</span>
             <a href="https://www.facebook.com/sercanakolach" target="_blank" rel="noopener" class="tour__event-link">
               <span>Serca Na Kołach</span>
               <span class="tour__event-arrow" aria-hidden="true">↗</span>
@@ -407,6 +447,6 @@
        app.js promotes it. Implicit rendering: once it executes it scans the
        DOM for `.cf-turnstile` and renders the widget itself. -->
   <script id="turnstileScript" data-src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
-  <script src="/assets/js/app.js?v=20260801a" defer></script>
+  <script src="/assets/js/app.js?v=20260807a" defer></script>
 </body>
 </html>
