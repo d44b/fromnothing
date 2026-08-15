@@ -32,7 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="image" href="/assets/img/bg-hero-2.webp" type="image/webp" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Teko:wght@300;400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/style.css?v=20260807a" />
+  <link rel="stylesheet" href="/assets/css/style.css?v=20260815a" />
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -80,6 +80,7 @@
           "https://www.youtube.com/@FromNothingPoland"
         ],
         "event": [
+          { "@id": "https://fromnothing.pl/#event-2026-12-04-underground-pub-tychy" },
           { "@id": "https://fromnothing.pl/#event-2027-02-05-pszczynskie-centrum-kultury" },
           { "@id": "https://fromnothing.pl/#event-2027-03-14-lola-montez-gliwice" }
         ],
@@ -90,6 +91,23 @@
           { "@type": "Person", "name": "Wojtek", "description": "Drums" },
           { "@type": "Person", "name": "Damian", "description": "Bass guitar" }
         ]
+      },
+      {
+        "@type": "MusicEvent",
+        "@id": "https://fromnothing.pl/#event-2026-12-04-underground-pub-tychy",
+        "name": "From Nothing — Underground Pub",
+        "startDate": "2026-12-04",
+        "location": {
+          "@type": "Place",
+          "name": "Underground Pub",
+          "url": "https://undergroundpub.pl/",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Korfantego 1",
+            "addressLocality": "Tychy"
+          }
+        },
+        "performer": { "@id": "https://fromnothing.pl/#band" }
       },
       {
         "@type": "MusicEvent",
@@ -229,6 +247,24 @@
       <h3 class="tour__group-title" id="tour-upcoming-title" data-i18n="tour.upcoming">Nadchodzące</h3>
       <ol class="tour__list">
         <li class="tour__row">
+          <time class="tour__date" datetime="2026-12-04">
+            <span class="tour__day">04</span>
+            <span class="tour__month" data-i18n="months.12">GRU</span>
+            <span class="tour__year">2026</span>
+          </time>
+          <div class="tour__city">Tychy</div>
+          <div class="tour__venue">
+            <a href="https://undergroundpub.pl/" target="_blank" rel="noopener" class="tour__event-link">
+              <span>Underground Pub</span>
+              <span class="tour__event-arrow" aria-hidden="true">↗</span>
+            </a>
+            <span class="tour__venue-addr">pl. Korfantego 1, Tychy</span>
+          </div>
+          <div class="tour__action">
+            <span class="tour__ticket tour__ticket--status" data-i18n="tour.ticketsSoon">Bilety: informacje wkrótce</span>
+          </div>
+        </li>
+        <li class="tour__row">
           <time class="tour__date" datetime="2027-02-05">
             <span class="tour__day">05</span>
             <span class="tour__month" data-i18n="months.02">LUT</span>
@@ -236,11 +272,11 @@
           </time>
           <div class="tour__city">Pszczyna</div>
           <div class="tour__venue">
-            <span class="tour__venue-addr">ul. Władysława Jagiełły 1, Pszczyna</span>
             <a href="https://pckul.pl/" target="_blank" rel="noopener" class="tour__event-link">
               <span>Pszczyńskie Centrum Kultury</span>
               <span class="tour__event-arrow" aria-hidden="true">↗</span>
             </a>
+            <span class="tour__venue-addr">ul. Władysława Jagiełły 1, Pszczyna</span>
           </div>
           <div class="tour__action">
             <span class="tour__ticket tour__ticket--status" data-i18n="tour.ticketsSoon">Bilety: informacje wkrótce</span>
@@ -254,11 +290,11 @@
           </time>
           <div class="tour__city">Gliwice</div>
           <div class="tour__venue">
-            <span class="tour__venue-addr">ul. Średnia 10, Gliwice</span>
             <a href="https://www.facebook.com/p/Lola-Montez-Live-Music-Sport-Pub-61585042743978/" target="_blank" rel="noopener" class="tour__event-link">
               <span>Lola Montez Live Music &amp; Sport Pub</span>
               <span class="tour__event-arrow" aria-hidden="true">↗</span>
             </a>
+            <span class="tour__venue-addr">ul. Średnia 10, Gliwice</span>
           </div>
           <div class="tour__action">
             <span class="tour__ticket tour__ticket--status" data-i18n="tour.ticketsSoon">Bilety: informacje wkrótce</span>
@@ -278,11 +314,11 @@
           </time>
           <div class="tour__city">TYCHY / Stadion Miejski</div>
           <div class="tour__venue">
-            <span class="tour__venue-addr">ul. Edukacji 7, Tychy</span>
             <a href="https://www.facebook.com/sercanakolach" target="_blank" rel="noopener" class="tour__event-link">
               <span>Serca Na Kołach</span>
               <span class="tour__event-arrow" aria-hidden="true">↗</span>
             </a>
+            <span class="tour__venue-addr">ul. Edukacji 7, Tychy</span>
           </div>
           <div class="tour__action">
             <a href="https://www.facebook.com/photo/?fbid=1426104506219758&set=pcb.1426106189552923" target="_blank" rel="noopener" class="tour__ticket" data-i18n="tour.gallery">Galeria →</a>

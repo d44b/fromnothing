@@ -713,7 +713,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   letter-spacing: 0.16em;
   color: var(--accent-hot);
   text-transform: uppercase;
-  margin-top: 0.25rem;
   transition: gap 0.2s var(--ease-out);
   width: fit-content;
 }
