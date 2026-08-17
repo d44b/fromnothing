@@ -151,16 +151,15 @@ function tickerItemSpan(text) {
 }
 
 // Builds the marquee's inner spans: up to TICKER_MAX_ITEMS upcoming
-// concerts as "DD.MM CITY — VENUE" (city upper-cased, both fields
-// HTML-escaped), the whole sequence emitted twice so the CSS marquee loops
-// seamlessly. Falls back to the brand sequence when there are no upcoming
-// concerts.
+// concerts as "DD.MM CITY" (city upper-cased, HTML-escaped; deliberately no
+// venue — the strip stays scannable, details live in #tour), the whole
+// sequence emitted twice so the CSS marquee loops seamlessly. Falls back to
+// the brand sequence when there are no upcoming concerts.
 function buildTickerHtml(upcoming) {
   const items = upcoming.slice(0, TICKER_MAX_ITEMS).map((concert) => {
     const [, m, d] = concert.date.split("-");
     const city = escapeHtml(String(concert.city).toUpperCase());
-    const venue = escapeHtml(concert.venue_name);
-    return tickerItemSpan(`${d}.${m} ${city} — ${venue}`);
+    return tickerItemSpan(`${d}.${m} ${city}`);
   });
 
   const sequence = items.length
