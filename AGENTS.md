@@ -31,7 +31,7 @@ When one fact changes, inspect and update every representation of that fact. At 
 
 | Changed information | Places to inspect and synchronize |
 | --- | --- |
-| Concert or tour entry | Visible HTML, PL/EN translations, `<time datetime>`, JSON-LD `MusicEvent`, links, and `sitemap.xml` |
+| Concert or tour entry | The `concerts` table in D1 (edited via the `/koncerty` admin page or `/api/concerts`, NOT in HTML). `functions/index.js` renders the homepage tour lists, the ticker, and JSON-LD `MusicEvent` nodes from it. The static fallback content between the `CONCERTS:*`/`LD:CONCERTS` markers in `index.html` should be refreshed to match reality when touched, and the row/JSON-LD templates in `functions/index.js` must stay in sync with the static markup |
 | Band member or role | Visible HTML, portrait and alt text, PL/EN translations, JSON-LD `member`, and `llms.txt` |
 | Official social profile | Navbar, contact section, JSON-LD `sameAs`, and `llms.txt` |
 | Contact or booking details | Visible HTML, form behavior, JSON-LD, and `llms.txt` |
@@ -43,8 +43,10 @@ This table is a minimum checklist, not an exhaustive list. Search the repository
 
 ## Tour and event rules
 
-- Every new or changed upcoming tour entry must be reflected in JSON-LD.
-- Past concerts may remain in the visible archive, but they must be removed from JSON-LD, including references from parent entities such as `MusicGroup`.
+Concerts are stored in the `concerts` D1 table and rendered dynamically by `functions/index.js` (see README, "Concerts and presspacks"). Data changes happen through `/koncerty`; code changes to how concerts render happen in `functions/index.js`. The rules below bind both the renderer's output and the static fallback markup in `index.html`.
+
+- Every new or changed upcoming tour entry must be reflected in JSON-LD (the renderer does this; keep it true when changing the renderer or the fallback).
+- Past concerts may remain in the visible archive, but they must be removed from JSON-LD, including references from parent entities such as `MusicGroup` (the renderer enforces this by only emitting upcoming events).
 - Use ISO dates in `datetime`, JSON-LD, and sitemap fields where applicable.
 - Visible status and structured status must agree. Past, cancelled, postponed, rescheduled, and upcoming events must not contradict one another.
 - Do not add ticket availability, prices, event status, venue data, or organizer information unless explicitly provided or already present in a trusted project source.
