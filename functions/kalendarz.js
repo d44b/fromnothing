@@ -182,6 +182,20 @@ const APP_STYLE = `
   line-height: 1;
   color: var(--accent);
 }
+.header-actions { flex-shrink: 0; display: flex; align-items: center; gap: 0.6rem; }
+.nav-link {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid var(--ink);
+  padding: 0.5rem 0.85rem;
+  min-height: 44px;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  background: var(--bg);
+  text-decoration: none;
+}
+.nav-link:hover { background: var(--ink); color: var(--bg); }
 .logout-btn {
   flex-shrink: 0;
   border: 1px solid var(--ink);
@@ -1079,7 +1093,10 @@ function appPage() {
     `<body>` +
     `<header class="app-header">` +
     `<div><span class="app-header__kicker">From Nothing</span><h1 class="app-header__title">Kalendarz</h1></div>` +
+    `<div class="header-actions">` +
+    `<a href="/koncerty" class="nav-link">Koncerty</a>` +
     `<button type="button" id="logout-btn" class="logout-btn">Wyloguj</button>` +
+    `</div>` +
     `</header>` +
     `<main class="layout">` +
     `<aside class="sidebar">` +

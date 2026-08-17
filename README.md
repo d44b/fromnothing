@@ -211,3 +211,50 @@ Additional Pages secrets (names only, same convention as above):
 `GOOGLE_CALENDAR_ID`. The Google Cloud side is project `fromnothing`
 (service account `calendar-sync`, Calendar API enabled) with the target
 calendar shared to the service account ("make changes to events").
+
+## Concerts and presspacks
+
+Concerts on the homepage are **no longer edited in `index.html`** — they live
+in the `concerts` table of the same `fromnothing-leads` D1 database and are
+managed from **`/koncerty`** (`functions/koncerty.js`), an unlisted admin page
+behind the same password/`fn_cal` cookie as `/kalendarz` (the two pages link
+to each other). The page drives the authenticated JSON API under
+`/api/concerts` (`functions/api/concerts/`): create/update/delete, a
+"visible on the homepage" flag (`published`), and per-concert presspack
+links. Creating a concert also inserts a linked `calendar_entries` row
+(`concerts.calendar_entry_id`), so the date is blocked in `/kalendarz` +
+`/terminy` and mirrored to Google Calendar; updates and deletes keep that row
+(and its Google event) in sync.
+
+### Dynamic homepage
+
+`functions/index.js` intercepts `GET /`, fetches the static `index.html` from
+the asset store and rewrites three marker-delimited regions
+(`CONCERTS:UPCOMING`, `CONCERTS:PAST`, `LD:CONCERTS`) from D1: upcoming
+published concerts (date ≥ today, ascending), the archive (descending), and
+the JSON-LD — where only *upcoming* concerts get `MusicEvent` nodes; past
+ones are dropped, as AGENTS.md requires. The static content between the
+markers is a fail-open fallback: any error (missing binding, D1 outage,
+parse failure) serves the untouched static file. Responses carry
+`Cache-Control: public, max-age=300` and are edge-cached in `caches.default`,
+so **admin changes reach the homepage within ~5 minutes**; `ETag`/
+`Last-Modified` are deliberately stripped so browsers can't revalidate a
+stale dynamic copy against the static asset's validators.
+
+One-time production setup (schema + seed of the previously hardcoded
+concerts) is applied with `wrangler d1 execute fromnothing-leads --remote
+--file <schema.sql / seed sql>`; the SQL sources live locally under
+`specs/koncerty-presspack/` (that directory is deliberately untracked).
+
+### Presspacks
+
+Shared press assets (photos, logos, bio files…) live in the
+`fromnothing-media` R2 bucket under the `presspack/` prefix and are uploaded,
+listed and deleted from the `/koncerty` page via the authenticated
+`/api/presspack/files` endpoints. For any concert the admin can generate
+(or rotate / revoke) a dedicated public link `/presspack/<32-hex-token>`
+(`functions/presspack/[token].js`): it assembles a ZIP on the fly — every
+`presspack/*` object plus a generated `FROM-NOTHING-INFO.txt` with that
+concert's date/venue/address and booking contact — using the dependency-free
+STORE zip writer in `functions/_presspack/zip.js`. The link is unguessable,
+`noindex`, uncached, and dies the moment the token is rotated or revoked.

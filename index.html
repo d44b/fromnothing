@@ -32,7 +32,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="preload" as="image" href="/assets/img/bg-hero-2.webp" type="image/webp" fetchpriority="high" />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Teko:wght@300;400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/style.css?v=20260815a" />
+  <link rel="stylesheet" href="/assets/css/style.css?v=20260817a" />
+  <!-- LD:CONCERTS -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -168,6 +169,7 @@
     ]
   }
   </script>
+  <!-- /LD:CONCERTS -->
 </head>
 <body>
   <div class="scanlines" aria-hidden="true"></div>
@@ -225,7 +227,7 @@
     </h1>
 
     <div class="hero__cta">
-      <a href="#tour" class="btn btn--primary" data-i18n="hero.cta.tour">Zobacz koncerty →</a>
+      <a href="#tour" class="btn btn--primary" data-i18n="hero.cta.tour">Koncerty</a>
       <a href="#contact" class="btn btn--ghost" data-i18n="hero.cta.book">Booking</a>
     </div>
 
@@ -238,19 +240,17 @@
   <!-- MARQUEE TICKER -->
   <div class="ticker" aria-hidden="true">
     <div class="ticker__track">
-      <span>FROM NOTHING</span><span class="ticker__dot">✺</span>
-      <span>LINKIN PARK</span><span class="ticker__dot">✺</span>
-      <span>TRIBUTE BAND</span><span class="ticker__dot">✺</span>
-      <span>FROM NOTHING</span><span class="ticker__dot">✺</span>
-      <span>LINKIN PARK</span><span class="ticker__dot">✺</span>
-      <span>TRIBUTE BAND</span><span class="ticker__dot">✺</span>
+      <!-- CONCERTS:TICKER -->
+      <span>04.12 TYCHY — Underground Pub</span><span class="ticker__dot">✺</span>
+      <span>18.12 SOSNOWIEC — Komin Music Cafe</span><span class="ticker__dot">✺</span>
+      <span>05.02 PSZCZYNA — Pszczyńskie Centrum Kultury</span><span class="ticker__dot">✺</span>
+      <span>14.03 GLIWICE — Lola Montez Live Music &amp; Sport Pub</span><span class="ticker__dot">✺</span>
       <!-- duplicate for seamless loop -->
-      <span>FROM NOTHING</span><span class="ticker__dot">✺</span>
-      <span>LINKIN PARK</span><span class="ticker__dot">✺</span>
-      <span>TRIBUTE BAND</span><span class="ticker__dot">✺</span>
-      <span>FROM NOTHING</span><span class="ticker__dot">✺</span>
-      <span>LINKIN PARK</span><span class="ticker__dot">✺</span>
-      <span>TRIBUTE BAND</span><span class="ticker__dot">✺</span>
+      <span>04.12 TYCHY — Underground Pub</span><span class="ticker__dot">✺</span>
+      <span>18.12 SOSNOWIEC — Komin Music Cafe</span><span class="ticker__dot">✺</span>
+      <span>05.02 PSZCZYNA — Pszczyńskie Centrum Kultury</span><span class="ticker__dot">✺</span>
+      <span>14.03 GLIWICE — Lola Montez Live Music &amp; Sport Pub</span><span class="ticker__dot">✺</span>
+      <!-- /CONCERTS:TICKER -->
     </div>
   </div>
 
@@ -265,6 +265,7 @@
     <section class="tour__group" aria-labelledby="tour-upcoming-title">
       <h3 class="tour__group-title" id="tour-upcoming-title" data-i18n="tour.upcoming">Nadchodzące</h3>
       <ol class="tour__list">
+        <!-- CONCERTS:UPCOMING -->
         <li class="tour__row">
           <time class="tour__date" datetime="2026-12-04">
             <span class="tour__day">04</span>
@@ -337,12 +338,14 @@
             <span class="tour__ticket tour__ticket--status" data-i18n="tour.ticketsSoon">Bilety: informacje wkrótce</span>
           </div>
         </li>
+        <!-- /CONCERTS:UPCOMING -->
       </ol>
     </section>
 
     <section class="tour__group" aria-labelledby="tour-past-title">
       <h3 class="tour__group-title" id="tour-past-title" data-i18n="tour.past">Archiwalne</h3>
       <ol class="tour__list">
+        <!-- CONCERTS:PAST -->
         <li class="tour__row tour__row--past">
           <time class="tour__date" datetime="2026-06-14">
             <span class="tour__day">14</span>
@@ -362,6 +365,7 @@
           </div>
           <p class="tour__thanks" data-i18n="tour.thanks">Tychy — było pięknie! Wymarzony debiut! Do zobaczenia wkrótce :)</p>
         </li>
+        <!-- /CONCERTS:PAST -->
       </ol>
     </section>
 
@@ -520,6 +524,6 @@
        app.js promotes it. Implicit rendering: once it executes it scans the
        DOM for `.cf-turnstile` and renders the widget itself. -->
   <script id="turnstileScript" data-src="https://challenges.cloudflare.com/turnstile/v0/api.js" defer></script>
-  <script src="/assets/js/app.js?v=20260807a" defer></script>
+  <script src="/assets/js/app.js?v=20260817a" defer></script>
 </body>
 </html>
