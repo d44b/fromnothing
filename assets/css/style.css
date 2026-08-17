@@ -873,10 +873,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .member:hover .member__portrait { border-color: var(--line-strong); }
 
-/* Member card with real photo */
+/* Member card with real photo: the photograph frames itself — dropping the
+   portrait border leaves one frame per card (the grid cell) instead of a
+   box-in-a-box, which read especially heavy stacked in one column on mobile. */
 .member--photo .member__portrait {
   background: none;
-  border-color: var(--line-strong);
+  border: 0;
   overflow: hidden;
 }
 .member--photo .member__portrait::before { display: none; }
@@ -1025,7 +1027,15 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 /* Honeypot: display:none is enough on its own (no layout, no tab stop, no
    AT exposure) — aria-hidden/tabindex on the markup are belt-and-braces. */
 .field--hp { display: none; }
-.form__captcha { grid-column: 1 / -1; }
+/* min-width: 0 down the chain: the Turnstile iframe refuses to shrink below
+   ~300px, and grid items' default min-width:auto lets that rigidity blow the
+   form out of its track — the whole form then sticks out past the section's
+   right padding on narrow phones. Zeroing min-width keeps the form at track
+   width; overflow:hidden clips the widget's last few px on the very
+   narrowest screens instead of shifting the entire page. */
+.contact__form { min-width: 0; }
+.field { min-width: 0; }
+.form__captcha { grid-column: 1 / -1; min-width: 0; overflow: hidden; }
 .form__captcha .cf-turnstile { width: 100%; }
 .field label {
   font-size: var(--fs-xs);
@@ -1360,7 +1370,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 @media (max-width: 480px) {
   .nav__name { display: none; }
-  .lineup__grid { grid-template-columns: 1fr; }
+  /* Single column: the outer grid box + per-cell side borders stop meaning
+     "grid" and just pile frames on frames — keep only the horizontal
+     separators between members. */
+  .lineup__grid { grid-template-columns: 1fr; border: 0; }
+  .member { border-right: 0; }
   .member:last-child { border-bottom: 0; }
 }
 
