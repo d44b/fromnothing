@@ -180,6 +180,7 @@
     </a>
     <nav class="nav__links" id="navLinks" aria-label="Primary">
       <a href="#tour" data-i18n="nav.tour">Koncerty</a>
+      <a href="#updates" data-i18n="nav.updates">Co nowego</a>
       <a href="#lineup" data-i18n="nav.lineup">Skład</a>
       <a href="#contact" data-i18n="nav.contact">Kontakt</a>
     </nav>
@@ -371,10 +372,74 @@
     </aside>
   </section>
 
+  <!-- UPDATES -->
+  <section id="updates" class="section updates">
+    <header class="section__head">
+      <span class="section__num">02 /</span>
+      <h2 class="section__title" data-i18n="updates.title">Co nowego</h2>
+      <p class="section__sub" data-i18n="updates.sub">Aktualności</p>
+    </header>
+
+    <ol class="updates__list">
+      <li class="updates__item">
+        <article class="update">
+          <header class="update__meta">
+            <time datetime="2026-08-17">17.08.2026</time>
+          </header>
+          <div class="update__content">
+            <h3 data-i18n="updates.post1.title">Cześć!</h3>
+            <p data-i18n="updates.post1.body">Chwilę nas tutaj nie było, bo ciężko, ale chętnie 😊 pracowaliśmy nad repertuarem, mediami i ofertą koncertową. Ogarnialiśmy różne marketingowe tematy i już spieszymy Was poinformować o pierwszych, zaklepanych terminach koncertów, na które już teraz serdecznie zapraszamy! 😊💪👍</p>
+            <a href="#tour" class="update__link" data-i18n="updates.post1.cta">Koncerty znajdziecie tutaj →</a>
+          </div>
+        </article>
+      </li>
+      <li class="updates__item">
+        <article class="update">
+          <header class="update__meta">
+            <time datetime="2026-06-24">24.06.2026</time>
+          </header>
+          <div class="update__content">
+            <h3 data-i18n="updates.post2.title">14 czerwca mieliśmy przyjemność zagrać nasz pierwszy koncert! 😊</h3>
+            <p data-i18n="updates.post2.body">Zagraliśmy przy okazji akcji charytatywnej Serca Na Kołach wraz z paroma innymi wykonawcami. Akcja miała miejsce przy Stadionie Miejskim w Tychach, gdzie główną atrakcją było piękne MOTO-SHOW! Dziękujemy organizatorom za zaproszenie, publiczności za miłe przyjęcie i akustykom za świetną obsługę! Mamy nadzieję — do zobaczenia na kolejnych akcjach oraz na koncertach! 😊</p>
+            <div class="update__references">
+              <span class="update__references-label" aria-hidden="true" data-i18n="updates.linksLabel">Zobacz na</span>
+              <a href="https://www.facebook.com/FromNothingPoland/posts/pfbid0dGzKtS9McMHQ4iuJLKWHHuJZBi8s9vAGKsiL28PsFysEJ4VAAmUfUKyRwQS9uj3Rl" target="_blank" rel="noopener" class="update__reference">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6H16.7V4.8c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4V11H8v3h2.5v8h3z"/>
+                </svg>
+                <span class="visually-hidden" data-i18n="updates.linksLabel">Zobacz na</span>
+                <span data-i18n="updates.post2.cta">Facebook ↗</span>
+                <span class="visually-hidden" data-i18n="a11y.newTab">(otwiera się w nowej karcie)</span>
+              </a>
+            </div>
+          </div>
+        </article>
+      </li>
+    </ol>
+
+    <nav class="updates__more" aria-labelledby="updates-more-label">
+      <span class="updates__more-label" id="updates-more-label" data-i18n="updates.moreLabel">Więcej na:</span>
+      <a href="https://www.facebook.com/FromNothingPoland/" target="_blank" rel="noopener" class="update__reference">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M13.5 22v-8h2.7l.4-3h-3.1V9.1c0-.9.3-1.6 1.7-1.6H16.7V4.8c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4V11H8v3h2.5v8h3z"/>
+        </svg>
+        <span>Facebook ↗</span>
+        <span class="visually-hidden" data-i18n="a11y.newTab">(otwiera się w nowej karcie)</span>
+      </a>
+      <a href="https://www.youtube.com/@FromNothingPoland" target="_blank" rel="noopener" class="update__reference">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M23 12.1s0-3-0.4-4.5c-.2-.8-.9-1.5-1.8-1.7C19.2 5.5 12 5.5 12 5.5s-7.2 0-8.8.4c-.8.2-1.5.9-1.8 1.7C1 9.1 1 12.1 1 12.1s0 3 .4 4.5c.2.8.9 1.5 1.8 1.7 1.6.4 8.8.4 8.8.4s7.2 0 8.8-.4c.8-.2 1.5-.9 1.8-1.7.4-1.5.4-4.5.4-4.5zM9.7 15.9V8.3l6.3 3.8-6.3 3.8z"/>
+        </svg>
+        <span>YouTube ↗</span>
+        <span class="visually-hidden" data-i18n="a11y.newTab">(otwiera się w nowej karcie)</span>
+      </a>
+    </nav>
+  </section>
+
   <!-- LINEUP -->
   <section id="lineup" class="section lineup section--bg">
     <header class="section__head">
-      <span class="section__num">02 /</span>
+      <span class="section__num">03 /</span>
       <h2 class="section__title" data-i18n="lineup.title">Skład</h2>
       <p class="section__sub" data-i18n="lineup.sub">Lineup</p>
     </header>
@@ -435,7 +500,7 @@
   <!-- CONTACT -->
   <section id="contact" class="section contact section--bg">
     <header class="section__head">
-      <span class="section__num">03 /</span>
+      <span class="section__num">04 /</span>
       <h2 class="section__title" data-i18n="contact.title">Kontakt</h2>
       <p class="section__sub" data-i18n="contact.sub">Booking</p>
     </header>

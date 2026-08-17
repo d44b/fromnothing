@@ -50,6 +50,24 @@ This table is a minimum checklist, not an exhaustive list. Search the repository
 - Do not add ticket availability, prices, event status, venue data, or organizer information unless explicitly provided or already present in a trusted project source.
 - External event and gallery links must point to the event they describe.
 
+## Updates feed rules
+
+The homepage updates feed is the `#updates` section headed `Co nowego` in Polish and `What's new` in English. It contains short, social-style posts embedded directly in the page without a CMS, social embed, external SDK, or tracking script.
+
+- Keep posts in reverse chronological order, with the newest post first.
+- Keep no more than two posts in the homepage feed. Before adding a third post, remove the oldest post from `index.html` and remove its post-specific translation keys from both language dictionaries; do not merely hide old posts with CSS or JavaScript.
+- Use the existing semantic structure.
+- Give every post a publication date supplied or confirmed by the user. Use an ISO `YYYY-MM-DD` value in `<time datetime>` and display it as `DD.MM.YYYY`.
+- Use the first sentence as the `h3` when it works as a concise heading; otherwise ask for a heading or make only a non-factual editorial condensation of the supplied copy.
+- Preserve the band's informal voice and emoji. Correct clear spelling, punctuation, and grammar errors, but do not silently alter facts, claims, names, dates, or meaning.
+- Keep the Polish fallback content in `index.html` and add semantically equivalent Polish and English values to the `I18N` dictionaries in `assets/js/app.js`. Use paired `updates.postN.*` keys for each post.
+- Do not add `BlogPosting` or `SocialMediaPosting` JSON-LD for homepage updates; they are short secondary items without dedicated URLs.
+- Optional related links belong below the post in `.update__references`. Use the shared visible label `ZOBACZ NA` / `VIEW ON`, followed by compact `.update__reference` links for destinations such as Facebook, an event page, or a gallery.
+- A related social link must point to the exact post, not merely the band's profile. An event or gallery link must point to the exact event or gallery it describes.
+- External links opened in a new tab must include `target="_blank"`, `rel="noopener"`, and the localized new-tab notice.
+- Keep the feed compact and reuse its existing typography, spacing, hover, focus, and responsive patterns. Check long headings, English copy, link wrapping, and the mobile single-column layout.
+- Update the homepage language variants' `sitemap.xml` `<lastmod>` when the feed changes.
+
 ## Language and internationalization
 
 - The Polish version uses `https://fromnothing.pl/`.

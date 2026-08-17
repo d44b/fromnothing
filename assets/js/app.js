@@ -2,6 +2,7 @@
 (() => {
   const I18N = {
     pl: {
+      "nav.updates": "Co nowego",
       "nav.tour": "Koncerty",
       "nav.lineup": "Skład",
       "nav.contact": "Kontakt",
@@ -9,6 +10,16 @@
       "hero.cta.tour": "Zobacz koncerty →",
       "hero.cta.book": "Booking",
       "hero.scroll": "Przewiń",
+      "updates.title": "Co nowego",
+      "updates.sub": "Aktualności",
+      "updates.moreLabel": "Więcej na:",
+      "updates.linksLabel": "Zobacz na",
+      "updates.post1.title": "Cześć!",
+      "updates.post1.body": "Chwilę nas tutaj nie było, bo ciężko, ale chętnie 😊 pracowaliśmy nad repertuarem, mediami i ofertą koncertową. Ogarnialiśmy różne marketingowe tematy i już spieszymy Was poinformować o pierwszych, zaklepanych terminach koncertów, na które już teraz serdecznie zapraszamy! 😊💪👍",
+      "updates.post1.cta": "Koncerty znajdziecie tutaj →",
+      "updates.post2.title": "14 czerwca mieliśmy przyjemność zagrać nasz pierwszy koncert! 😊",
+      "updates.post2.body": "Zagraliśmy przy okazji akcji charytatywnej Serca Na Kołach wraz z paroma innymi wykonawcami. Akcja miała miejsce przy Stadionie Miejskim w Tychach, gdzie główną atrakcją było piękne MOTO-SHOW! Dziękujemy organizatorom za zaproszenie, publiczności za miłe przyjęcie i akustykom za świetną obsługę! Mamy nadzieję — do zobaczenia na kolejnych akcjach oraz na koncertach! 😊",
+      "updates.post2.cta": "Facebook ↗",
       "tour.title": "Koncerty",
       "tour.sub": "Terminy",
       "tour.upcoming": "Nadchodzące",
@@ -52,6 +63,7 @@
       "role.drums": "Perkusja"
     },
     en: {
+      "nav.updates": "What's new",
       "nav.tour": "Shows",
       "nav.lineup": "Lineup",
       "nav.contact": "Contact",
@@ -59,6 +71,16 @@
       "hero.cta.tour": "See shows →",
       "hero.cta.book": "Booking",
       "hero.scroll": "Scroll",
+      "updates.title": "What's new",
+      "updates.sub": "Updates",
+      "updates.moreLabel": "More on:",
+      "updates.linksLabel": "View on",
+      "updates.post1.title": "Hi!",
+      "updates.post1.body": "We haven't posted here for a while because we've been working hard — and enjoying it 😊 — on our setlist, media, and live offer. We've also been handling various marketing matters, and now we're excited to share the first confirmed show dates. We'd love to see you there! 😊💪👍",
+      "updates.post1.cta": "You'll find the shows here →",
+      "updates.post2.title": "On 14 June, we had the pleasure of playing our first show! 😊",
+      "updates.post2.body": "We performed at the Serca Na Kołach charity event alongside several other artists. The event took place by the Municipal Stadium in Tychy, where the main attraction was a fantastic MOTO-SHOW! Thank you to the organisers for inviting us, the audience for the warm welcome, and the sound engineers for their excellent work! We hope to see you at future events and shows! 😊",
+      "updates.post2.cta": "Facebook ↗",
       "tour.title": "Shows",
       "tour.sub": "Show dates",
       "tour.upcoming": "Upcoming",
@@ -255,7 +277,7 @@
   // Reveal on scroll
   function initReveal() {
     const targets = document.querySelectorAll(
-      ".section__head, .empty-state, .contact__block, .contact__form, .footer__wordmark"
+      ".section__head, .updates__item, .empty-state, .contact__block, .contact__form, .footer__wordmark"
     );
     targets.forEach((el) => el.classList.add("reveal"));
 
