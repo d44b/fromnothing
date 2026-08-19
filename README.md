@@ -254,7 +254,30 @@ listed and deleted from the `/koncerty` page via the authenticated
 `/api/presspack/files` endpoints. For any concert the admin can generate
 (or rotate / revoke) a dedicated public link `/presspack/<32-hex-token>`
 (`functions/presspack/[token].js`): it assembles a ZIP on the fly — every
-`presspack/*` object plus a generated `FROM-NOTHING-INFO.txt` with that
-concert's date/venue/address and booking contact — using the dependency-free
-STORE zip writer in `functions/_presspack/zip.js`. The link is unguessable,
-`noindex`, uncached, and dies the moment the token is rotated or revoked.
+`presspack/*` object, a generated `FROM-NOTHING-INFO.txt` with that
+concert's date/venue/address and booking contact, and four social graphics
+(FB square/landscape/event-cover post + Story/Reels 9:16) — using the
+dependency-free STORE zip writer in `functions/_presspack/zip.js`. The link
+is unguessable, `noindex`, uncached, and dies the moment the token is
+rotated or revoked.
+
+**The four social graphics are generated fresh on every download, from that
+concert's real D1 row — never a static file.** An earlier version of this
+feature uploaded pre-baked images into the shared `presspack/` pool, which
+meant every concert's ZIP shipped the same (wrong) date/city/venue. The fix:
+`functions/_presspack/graphics.js` takes a per-format "base template" PNG
+(R2, `presspack-gen/<format>-base.png` — everything that's identical across
+concerts: photo, duotone grade, ghost logo, diagonal band shape, wordmark,
+"fromnothing.pl") and draws only the four fields that actually vary (date,
+city, venue, address) on top, at request time. Cloudflare Workers have no
+Canvas/OffscreenCanvas and no font-shading engine, so drawing text is a
+bitmap-font compositor (`functions/_presspack/textcomposite.js`) blitting
+pre-rasterized glyphs from an atlas (`functions/_presspack/glyphatlas.js` +
+`glyphmetrics.js`, generated once offline from the same Anton / Space Mono
+files embedded in the poster HTML templates) onto a PNG decoded/re-encoded
+by a from-scratch, dependency-free codec (`functions/_presspack/png.js`,
+using the Streams API's `CompressionStream`/`DecompressionStream('deflate')`
+for the zlib layer — no npm zlib shim). If a base template's design ever
+needs to change, regenerate it via the pipeline notes in
+`specs/koncerty-presspack/` and re-upload to `presspack-gen/`; nothing in
+the Worker code needs to change for that.
