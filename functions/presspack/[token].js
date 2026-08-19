@@ -12,6 +12,7 @@
 // but unknown" in the response — both are a plain 404.
 
 import { buildZip } from "../_presspack/zip.js";
+import { generateGraphic, FORMAT_NAMES } from "../_presspack/graphics.js";
 
 const TOKEN_RE = /^[0-9a-f]{32}$/;
 
@@ -173,6 +174,25 @@ export async function onRequest({ request, params, env }) {
     data: new TextEncoder().encode(buildInfoText(concert)),
   };
 
+  // Per-concert social graphics (FB square/landscape/event-cover post +
+  // Story/Reels 9:16), rendered fresh for THIS concert's date/city/venue/
+  // address on every request — see ../_presspack/graphics.js for why this
+  // has to happen here and can't be a static file: a shared presspack/
+  // upload would show every promoter's download the wrong show. Best-effort
+  // per format: a failure here (e.g. a missing base template) drops that
+  // one graphic rather than failing the whole zip, matching the rest of
+  // this route's fail-open posture.
+  const slugForFilenames = citySlug(concert.city) || "koncert";
+  const graphicEntries = [];
+  for (const format of FORMAT_NAMES) {
+    try {
+      const { bytes, filename } = await generateGraphic(env, format, concert);
+      graphicEntries.push({ name: filename(slugForFilenames), data: bytes });
+    } catch (err) {
+      console.error(`presspack/[token]: graphic generation failed for ${format}`, err);
+    }
+  }
+
   let assetEntries;
   try {
     assetEntries = await loadPresspackEntries(env.MEDIA);
@@ -181,7 +201,7 @@ export async function onRequest({ request, params, env }) {
     return serverError();
   }
 
-  const zipBytes = buildZip([infoEntry, ...assetEntries]);
+  const zipBytes = buildZip([infoEntry, ...graphicEntries, ...assetEntries]);
 
   const slug = citySlug(concert.city);
   const filename = `FromNothing-presspack-${concert.date}-${slug}.zip`;
