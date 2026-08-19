@@ -205,7 +205,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   inset: -20% 0;
   left: -8%;
   z-index: -3;
-  background-image: url("/assets/img/bg-hero-2.webp");
+  background-image: url("/assets/img/bg-hero-2.webp?v=20260819");
   background-size: cover;
   background-position: center -20px;
   background-repeat: no-repeat;
