@@ -255,13 +255,14 @@ listed and deleted from the `/koncerty` page via the authenticated
 (or rotate / revoke) a dedicated public link `/presspack/<32-hex-token>`
 (`functions/presspack/[token].js`): it assembles a ZIP on the fly — every
 `presspack/*` object, a generated `FROM-NOTHING-INFO.txt` with that
-concert's date/venue/address and booking contact, and four social graphics
-(FB square/landscape/event-cover post + Story/Reels 9:16) — using the
+concert's date/venue/address and booking contact, and five social graphics
+(FB square/landscape/event-cover post + a "safe-zone" event cover + Story/Reels
+9:16) — using the
 dependency-free STORE zip writer in `functions/_presspack/zip.js`. The link
 is unguessable, `noindex`, uncached, and dies the moment the token is
 rotated or revoked.
 
-**The four social graphics are generated fresh on every download, from that
+**The five social graphics are generated fresh on every download, from that
 concert's real D1 row — never a static file.** An earlier version of this
 feature uploaded pre-baked images into the shared `presspack/` pool, which
 meant every concert's ZIP shipped the same (wrong) date/city/venue. The fix:
@@ -281,3 +282,18 @@ for the zlib layer — no npm zlib shim). If a base template's design ever
 needs to change, regenerate it via the pipeline notes in
 `specs/koncerty-presspack/` and re-upload to `presspack-gen/`; nothing in
 the Worker code needs to change for that.
+
+The two event covers exist because Facebook shows an event cover differently
+per surface and promoters upload whatever they were sent — the 25.10.2026
+Wrocław event had the 1:1 post uploaded as its cover, so desktop cut heads
+and venue off. Measured on a real event: desktop shows the full 1.91:1; the
+mobile app shows only the central square in the event header (with a white
+fade over its bottom third) and crops that square again to a 1.91:1 strip in
+the feed card. `FromNothing-fb-event-cover-<city>.png` is the classic
+two-column layout (photo left, text right; looks best at full 1.91:1 but
+loses half of each column on mobile). `FromNothing-fb-event-cover-safe-<city>.png`
+keeps faces and wordmark inside the part of the central square that every
+surface shows, puts date, city, venue and address together (black on the
+red band, so the header's white fade can't wash them out) and leaves only
+extended wall/vignette on the flanks — that is the one to send a venue for
+the event itself.

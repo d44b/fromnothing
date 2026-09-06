@@ -175,7 +175,7 @@ export async function onRequest({ request, params, env }) {
   };
 
   // Per-concert social graphics (FB square/landscape/event-cover post +
-  // Story/Reels 9:16), rendered fresh for THIS concert's date/city/venue/
+  // safe-zone event cover + Story/Reels 9:16), rendered fresh for THIS concert's date/city/venue/
   // address on every request — see ../_presspack/graphics.js for why this
   // has to happen here and can't be a static file: a shared presspack/
   // upload would show every promoter's download the wrong show. Best-effort

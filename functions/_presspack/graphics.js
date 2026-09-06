@@ -1,5 +1,5 @@
-// Generates the four per-concert social graphics (FB square/landscape/event
-// cover post + Story/Reels 9:16) entirely dynamically, from the concert's
+// Generates the five per-concert social graphics (FB square/landscape/event
+// cover post + safe-zone event cover + Story/Reels 9:16) entirely dynamically, from the concert's
 // real D1 data — nothing about a specific show is ever baked into a static
 // asset. Every other pixel (band photo, ghost logo, duotone grade, diagonal
 // band shape, wordmark, tribute line, "fromnothing.pl") is identical for
@@ -59,6 +59,28 @@ const FORMATS = {
       city:    { font: "anton", size: 46,  x: 1250, baselineY: 657, color: SCARLET, align: "left" },
       venue:   { font: "mono",  size: 20,  x: 1251, baselineY: 706, color: CREAM,   align: "left" },
       address: { font: "mono",  size: 17,  x: 1251, baselineY: 906, color: MUTED,   align: "left" },
+    },
+  },
+  // "Safe-zone" variant of the event cover. Measured on a real FB event
+  // (25.10.2026 Wrocław, phone screenshots): desktop shows the full 1.91:1;
+  // the mobile app shows only the CENTRAL SQUARE (x 458-1462) in the event
+  // header, with a white fade over its bottom ~35%, and the feed card crops
+  // that square again to a 1.91:1 strip (y 240-766). So faces, wordmark and
+  // the whole date/city/venue/address lockup live in y 240-766 of the
+  // centre square; the lockup is black-on-red inside the diagonal band so
+  // it stays readable under the header's white fade. Date is right-aligned
+  // to x=930, the three text lines left-aligned from x=975. Flanks are
+  // only extended wall/vignette. Kept as an additional file next to the
+  // classic two-column cover; base rendered from
+  // specs/koncerty-presspack/graphics-gen/cover-safe-src/.
+  coverSafe: {
+    width: 1920, height: 1005, base: "presspack-gen/cover-safe-base.png",
+    filename: (slug) => `FromNothing-fb-event-cover-safe-${slug}.png`,
+    fields: {
+      date:    { font: "anton", size: 96, x: 930, baselineY: 754, color: BLACK, align: "right" },
+      city:    { font: "anton", size: 40, x: 975, baselineY: 713, color: BLACK, align: "left" },
+      venue:   { font: "mono",  size: 17, x: 975, baselineY: 735, color: BLACK, align: "left" },
+      address: { font: "mono",  size: 15, x: 975, baselineY: 754, color: BLACK, align: "left" },
     },
   },
   story: {
